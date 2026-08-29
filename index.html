@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none';">
+<title>院内コール当直トレーニング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  :root{
+    --bg:#F5F6FA;
+    --surface:#FFFFFF;
+    --surface-2:#EAECF6;
+    --ink:#171B34;
+    --ink-soft:#565E82;
+    --ink-faint:#8891B0;
+    --line:#DCE0EF;
+    --primary:#3C4B8C;
+    --primary-strong:#262F5E;
+    --primary-tint:#E6E9F7;
+    --accent:#BC7A2E;
+    --accent-tint:#FAEDDC;
+    --good:#2E7D53;
+    --good-tint:#E3F3EA;
+    --warn:#BC7A2E;
+    --warn-tint:#FAEDDC;
+    --bad:#B23A3A;
+    --bad-tint:#FBE7E5;
+    --mono-bg:#171B34;
+    --mono-ink:#D9DEF7;
+    --mono-accent:#8FE3C7;
+    --shadow: 0 1px 2px rgba(16,20,45,.06), 0 6px 20px rgba(16,20,45,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D0F1F;
+      --surface:#161B33;
+      --surface-2:#1E2340;
+      --ink:#E9EBFA;
+      --ink-soft:#A6ACD6;
+      --ink-faint:#767CA8;
+      --line:#2B3159;
+      --primary:#8B98E8;
+      --primary-strong:#B3BDF2;
+      --primary-tint:#232A54;
+      --accent:#E3A45D;
+      --accent-tint:#392A14;
+      --good:#6FC796;
+      --good-tint:#16301F;
+      --warn:#E3A45D;
+      --warn-tint:#392A14;
+      --bad:#E27C7C;
+      --bad-tint:#3A1B1B;
+      --mono-bg:#080A18;
+      --mono-ink:#C9D0F5;
+      --mono-accent:#7FF2D4;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D0F1F;
+    --surface:#161B33;
+    --surface-2:#1E2340;
+    --ink:#E9EBFA;
+    --ink-soft:#A6ACD6;
+    --ink-faint:#767CA8;
+    --line:#2B3159;
+    --primary:#8B98E8;
+    --primary-strong:#B3BDF2;
+    --primary-tint:#232A54;
+    --accent:#E3A45D;
+    --accent-tint:#392A14;
+    --good:#6FC796;
+    --good-tint:#16301F;
+    --warn:#E3A45D;
+    --warn-tint:#392A14;
+    --bad:#E27C7C;
+    --bad-tint:#3A1B1B;
+    --mono-bg:#080A18;
+    --mono-ink:#C9D0F5;
+    --mono-accent:#7FF2D4;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.65;
+  }
+  h1,h2,h3,.disp{
+    font-family:"Zen Kaku Gothic New","BIZ UDPGothic",system-ui,sans-serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  #app{
+    max-width:520px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    padding:14px 18px 12px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .topbar .back{
+    appearance:none; border:none; background:transparent; color:var(--primary);
+    font-size:15px; font-weight:700; cursor:pointer; padding:6px 8px 6px 0;
+    display:flex; align-items:center; gap:2px; min-height:44px;
+    font-family:inherit;
+  }
+  .topbar .title{
+    font-size:15px; font-weight:700; color:var(--ink-soft);
+    letter-spacing:.02em;
+    flex:1;
+    text-align:center;
+    margin-right:34px;
+  }
+  main{flex:1; padding:0 18px 48px;}
+
+  /* ---------- HOME ---------- */
+  .hero{ padding:28px 4px 18px; }
+  .hero .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:.14em; color:var(--primary);
+    text-transform:uppercase;
+  }
+  .hero h1{ font-size:25px; font-weight:900; color:var(--ink); margin-top:8px; line-height:1.4; }
+  .hero p{ color:var(--ink-soft); font-size:14px; margin-top:10px; max-width:44ch; }
+
+  .progress-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; margin:14px 0 8px; box-shadow:var(--shadow);
+    display:flex; align-items:center; gap:16px;
+  }
+  .progress-ring{ position:relative; width:56px; height:56px; flex:none;}
+  .progress-ring svg{ transform:rotate(-90deg); }
+  .progress-ring .pct{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--primary-strong);
+  }
+  .progress-text{flex:1;}
+  .progress-text .num{font-size:13px; font-weight:700; color:var(--ink);}
+  .progress-text .sub{font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
+  .review-pill-btn{
+    appearance:none; border:1px solid var(--warn); background:var(--warn-tint); color:var(--warn);
+    font-weight:700; font-size:12.5px; padding:8px 12px; border-radius:999px; cursor:pointer;
+    white-space:nowrap; font-family:inherit;
+  }
+  .keitai-cta{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--primary-tint); border:1px solid var(--primary); border-radius:16px;
+    padding:14px 18px; margin:10px 0 24px; cursor:pointer;
+    width:100%; text-align:left; font-family:inherit; appearance:none;
+  }
+  .keitai-cta .t{display:block; font-size:14px; font-weight:700; color:var(--primary-strong);}
+  .keitai-cta .s{display:block; font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .keitai-cta .arrow{color:var(--primary-strong); font-size:18px; flex:none;}
+
+  .section-head{ display:flex; align-items:baseline; gap:8px; margin:26px 0 12px; }
+  .section-head .dot{width:9px;height:9px;border-radius:50%;flex:none;}
+  .section-head.urgent .dot{background:var(--bad);}
+  .section-head.judgment .dot{background:var(--warn);}
+  .section-head h2{font-size:15px; font-weight:700; color:var(--ink);}
+  .section-head .count{font-size:12px; color:var(--ink-faint); font-weight:400;}
+
+  .case-grid{ display:flex; flex-direction:column; gap:10px; }
+  .case-card{
+    display:flex; align-items:center; gap:14px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:14px 14px; cursor:pointer; text-align:left; width:100%;
+    box-shadow:var(--shadow); font-family:inherit;
+    appearance:none;
+  }
+  .case-card:active{ transform:scale(.99); }
+  .case-num{
+    font-family:"Zen Kaku Gothic New",sans-serif; font-weight:900; font-size:13px;
+    color:var(--ink-faint); width:26px; flex:none; font-variant-numeric:tabular-nums;
+  }
+  .case-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+  .case-body .hint{
+    font-size:14px; font-weight:600; color:var(--ink); line-height:1.4;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .status-chip{
+    flex:none; align-self:flex-start; font-size:11.5px; font-weight:700; padding:5px 10px; border-radius:999px;
+    white-space:nowrap;
+  }
+  .status-chip.none{ background:var(--surface-2); color:var(--ink-faint); }
+  .status-chip.good{ background:var(--good-tint); color:var(--good); }
+  .status-chip.partial{ background:var(--warn-tint); color:var(--warn); }
+  .status-chip.poor{ background:var(--bad-tint); color:var(--bad); }
+
+  .empty-review{ text-align:center; padding:40px 20px; color:var(--ink-faint); font-size:14px; }
+
+  /* ---------- CASE VIEW ---------- */
+  .case-hero{ padding:22px 0 4px; }
+  .case-hero .tag{ font-size:12px; font-weight:700; color:var(--primary); letter-spacing:.08em; text-transform:uppercase;}
+  .case-hero h1{ font-size:22px; font-weight:900; margin-top:8px; }
+
+  .call-bubble{
+    margin-top:16px; background:var(--primary-tint); border:1px solid var(--primary);
+    border-radius:18px 18px 18px 4px; padding:16px 18px; box-shadow:var(--shadow);
+    position:relative;
+  }
+  .call-bubble .cb-label{
+    display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--primary-strong); margin-bottom:8px;
+  }
+  .call-bubble .cb-label .phone-ico{
+    width:16px; height:16px; flex:none;
+  }
+  .call-bubble p{ margin:0; font-size:15px; color:var(--ink); line-height:1.7; }
+  .call-bubble p::before{ content:"\201C"; }
+  .call-bubble p::after{ content:"\201D"; }
+
+  .vignette{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; margin-top:12px; box-shadow:var(--shadow); font-size:14px; color:var(--ink-soft);
+  }
+  .vitals-mono{
+    margin-top:10px; background:var(--mono-bg); border-radius:12px; padding:12px 14px;
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--mono-ink);
+    font-variant-numeric:tabular-nums; letter-spacing:.01em; line-height:1.7;
+  }
+  .vitals-mono .lbl{ color:var(--mono-accent); margin-right:8px; font-weight:700; }
+
+  .prompt-block{ margin-top:22px; }
+  .prompt-block label{ display:block; font-size:13.5px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+  .prompt-block label .n{ color:var(--primary); margin-right:6px; }
+  .prompt-block textarea{
+    width:100%; min-height:88px; resize:vertical; border-radius:12px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    padding:12px 14px; font-family:inherit; font-size:14px; line-height:1.6;
+  }
+  .prompt-block textarea:focus{ outline:2px solid var(--primary); outline-offset:1px; }
+  .prompt-block textarea::placeholder{ color:var(--ink-faint); }
+
+  .reveal-btn{
+    width:100%; margin-top:24px; appearance:none; border:none; cursor:pointer;
+    background:var(--primary); color:#fff; font-weight:700; font-size:15px;
+    padding:15px; border-radius:14px; font-family:inherit;
+    box-shadow:0 4px 14px rgba(60,75,140,.32);
+  }
+  .reveal-btn:active{ transform:scale(.99); }
+
+  .answer-wrap{ margin-top:28px; }
+  .diagnosis-reveal{
+    background:var(--primary-tint); border:1.5px solid var(--primary); border-radius:16px;
+    padding:18px 20px; margin-bottom:20px; text-align:center;
+  }
+  .diagnosis-reveal .dr-eyebrow{
+    font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--primary-strong);
+  }
+  .diagnosis-reveal .dr-title{
+    font-family:"Zen Kaku Gothic New","BIZ UDPGothic",sans-serif; font-size:20px; font-weight:900;
+    margin-top:6px; color:var(--ink);
+  }
+  .diagnosis-reveal .dr-sub{ font-size:12.5px; margin-top:6px; color:var(--ink-soft); }
+  .verdict-badge{
+    display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+    font-size:12.5px; font-weight:700; padding:7px 14px; border-radius:999px;
+  }
+  .verdict-badge.go{ background:var(--bad-tint); color:var(--bad); }
+  .verdict-badge.phone{ background:var(--warn-tint); color:var(--warn); }
+
+  .answer-wrap .divider{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .answer-wrap .divider .line{ flex:1; height:1px; background:var(--line); }
+  .answer-wrap .divider span{ font-size:12px; font-weight:700; color:var(--ink-faint); letter-spacing:.08em;}
+
+  .answer-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:18px 20px; margin-bottom:12px; box-shadow:var(--shadow);
+  }
+  .answer-card h3{ font-size:13.5px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .answer-card h3 .ico{
+    width:22px;height:22px;border-radius:7px;flex:none; display:flex;align-items:center;justify-content:center;
+    font-size:12px; font-weight:900; color:#fff;
+  }
+  .ico.check{background:var(--primary);}
+  .ico.danger{background:var(--bad);}
+  .ico.tests{background:var(--accent);}
+  .answer-card ul{ margin:0; padding-left:20px; font-size:14px; color:var(--ink); }
+  .answer-card li{ margin-bottom:6px; }
+  .answer-card li:last-child{ margin-bottom:0; }
+  mark{
+    background:var(--accent-tint); color:var(--accent); padding:1px 5px; border-radius:5px;
+    font-weight:700; box-decoration-break:clone; -webkit-box-decoration-break:clone;
+  }
+
+  .pearl-block{
+    background:var(--surface-2); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px; margin-bottom:20px;
+  }
+  .pearl-block .pb-label{
+    font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--ink-faint);
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .pearl-block ul{ margin:0; padding-left:18px; font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
+  .pearl-block li{ margin-bottom:6px; }
+  .pearl-block li:last-child{ margin-bottom:0; }
+
+  .refs-block{ margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); }
+  .refs-block h4{ font-size:12px; font-weight:700; color:var(--ink-faint); letter-spacing:.06em; margin-bottom:8px; }
+  .refs-block ol{ margin:0; padding-left:19px; font-size:12.5px; color:var(--ink-soft); line-height:1.6; }
+  .refs-block li{ margin-bottom:7px; }
+  .refs-block li:last-child{ margin-bottom:0; }
+  .refs-block a{ color:var(--ink-soft); text-decoration:underline; text-underline-offset:2px; word-break:break-all; }
+  .refs-block a:hover{ color:var(--primary); }
+
+  .assess-block{ margin-top:26px; }
+  .assess-block .q{ font-size:14px; font-weight:700; margin-bottom:12px; text-align:center; }
+  .assess-row{ display:flex; gap:8px; }
+  .assess-btn{
+    flex:1; appearance:none; cursor:pointer; border-radius:12px; padding:13px 6px;
+    font-family:inherit; font-size:12.5px; font-weight:700; line-height:1.4;
+    border:1.5px solid var(--line); background:var(--surface); color:var(--ink-soft);
+  }
+  .assess-btn.good{ border-color:var(--good); }
+  .assess-btn.partial{ border-color:var(--warn); }
+  .assess-btn.poor{ border-color:var(--bad); }
+  .assess-btn.good.active{ background:var(--good); color:#fff; }
+  .assess-btn.partial.active{ background:var(--warn); color:#fff; }
+  .assess-btn.poor.active{ background:var(--bad); color:#fff; }
+  .save-warning{
+    margin-top:12px; padding:10px 14px; border-radius:10px;
+    background:var(--bad-tint); color:var(--bad); font-size:12.5px; font-weight:600; line-height:1.5;
+  }
+
+  .after-assess{ margin-top:22px; display:flex; flex-direction:column; gap:10px; animation:fadein .3s ease; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  .nav-btn{
+    appearance:none; border:none; cursor:pointer; border-radius:12px; padding:14px;
+    font-family:inherit; font-size:14.5px; font-weight:700; text-align:center;
+  }
+  .nav-btn.primary{ background:var(--primary); color:#fff; }
+  .nav-btn.ghost{ background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); }
+
+  /* ---------- KEITAI (PATTERN) VIEW ---------- */
+  .keitai-hero{ padding:24px 0 6px; }
+  .keitai-hero .eyebrow{ font-size:12px; font-weight:700; color:var(--primary); letter-spacing:.1em; text-transform:uppercase;}
+  .keitai-hero h1{ font-size:21px; font-weight:900; margin-top:8px; }
+  .keitai-hero p{ font-size:13.5px; color:var(--ink-soft); margin-top:8px; }
+
+  .escalation-note{
+    margin-top:18px; padding:16px 18px; border-radius:14px;
+    background:var(--accent-tint); border:1.5px solid var(--accent);
+  }
+  .escalation-note .en-label{
+    font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--accent); text-transform:uppercase;
+  }
+  .escalation-note .en-body{ font-size:13.5px; color:var(--ink); margin-top:6px; line-height:1.6; }
+
+  .flow{ margin-top:22px; position:relative; }
+  .flow-step{ display:flex; gap:14px; position:relative; padding-bottom:22px; }
+  .flow-step:last-child{ padding-bottom:0; }
+  .flow-step .rail{ display:flex; flex-direction:column; align-items:center; flex:none; }
+  .flow-step .node{
+    width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px;
+    font-family:"Zen Kaku Gothic New",sans-serif; flex:none; z-index:1;
+  }
+  .flow-step .stem{ width:2px; flex:1; background:var(--line); margin-top:2px; }
+  .flow-step .content{ flex:1; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px 16px; box-shadow:var(--shadow); margin-top:1px;}
+  .flow-step .content h3{ font-size:14.5px; font-weight:700; }
+  .flow-step .content p{ font-size:13px; color:var(--ink-soft); margin-top:5px; }
+
+  .keitai-foot{
+    margin-top:26px; padding:16px 18px; background:var(--primary-tint); border-radius:14px;
+    font-size:13px; color:var(--primary-strong); text-align:center; font-weight:700;
+  }
+
+  a{color:var(--primary);}
+  button:focus-visible, textarea:focus-visible, .case-card:focus-visible{
+    outline:2px solid var(--primary); outline-offset:2px;
+  }
+
+  @media (hover:hover){
+    .case-card:hover{ border-color:var(--primary); }
+    .keitai-cta:hover{ background:var(--primary-tint); filter:brightness(0.97); }
+    .review-pill-btn:hover{ filter:brightness(0.95); }
+    .reveal-btn:hover{ filter:brightness(1.08); }
+    .assess-btn:hover{ border-color:var(--primary); }
+    .nav-btn.primary:hover{ filter:brightness(1.08); }
+    .nav-btn.ghost:hover{ border-color:var(--primary); }
+    .topbar .back:hover{ text-decoration:underline; }
+  }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var CASES = [
+    {
+      id:"chest_pain", num:1, cat:"urgent", tag:"循環器",
+      title:"ステント血栓症・再梗塞の疑い",
+      hint:"68歳男性・NSTEMI後PCI後3日目・締め付けられるような胸痛",
+      call:"先生、501号室の患者さんが、10分前から胸が締め付けられるように痛いと訴えています。冷や汗もかいているようです。",
+      background:"68歳男性。3日前に非ST上昇型心筋梗塞(NSTEMI)に対しPCI(経皮的冠動脈インターベンション)を施行し、リハビリ中。",
+      vitals:"BP 148/92　HR 102　RR 20　SpO2 94%(room air)　冷汗あり",
+      verdict:"go", verdictLabel:"直ちに訪室",
+      answer:{
+        check:[
+          "痛みの性状(締め付け・圧迫感)・持続時間・<mark>放散痛の有無</mark>(頸部・左肩・背部)",
+          "<mark>バイタルサイン全項目</mark>(左右の血圧差も含む)、冷汗・悪心の有無",
+          "<mark>抗血小板薬(アスピリン・P2Y12阻害薬)の直近の内服状況</mark>ー自己中断や周術期の休薬がないか(DAPT中断はステント血栓症の最大の危険因子)",
+          "その場で12誘導心電図とパルスオキシメトリーの指示を出し、可能なら結果を電話で読み上げてもらう"
+        ],
+        danger:[
+          "<mark>ステント血栓症・再梗塞</mark>による突然の完全閉塞は、致死的不整脈やショックに至りうる",
+          "<mark>DAPT(二剤抗血小板療法)の自己中断・休薬</mark>があれば、ステント血栓症のリスクが跳ね上がる",
+          "痛みの程度が軽くても心電図変化が先行することがあり、<mark>症状の強さだけで否定できない</mark>",
+          "背部への放散痛や血圧の左右差があれば<mark>大動脈解離</mark>も鑑別に挙げる"
+        ],
+        tests:[
+          "直ちに訪室し、<mark>ベッドサイドで12誘導心電図</mark>を確認(新規のST上昇があれば直ちにカテ室起動、door-to-balloon 90分以内を目標とする)",
+          "<mark>SpO2 90%未満の場合のみ酸素投与</mark>(正常酸素飽和度へのルーチン酸素投与は転帰を改善しないため避ける)",
+          "収縮期血圧90mmHg以上かつ下壁梗塞・右室梗塞を疑う所見がなければ<mark>ニトログリセリン舌下0.3〜0.6mgを投与し疼痛の変化を評価</mark>(5分ごとに最大3回まで)",
+          "静脈路確保・モニター装着のうえ循環器当直へ速やかに報告しトロポニン再検を指示。<mark>疼痛が持続する場合のモルヒネ投与は経口P2Y12阻害薬の吸収遅延・効果減弱を来しうる点を念頭に慎重に判断する</mark>"
+        ]
+      },
+      pearl:[
+        "既往に心疾患がある患者の胸痛は、症状の強さでなく<mark>心電図とバイタル</mark>で緊急度を判断する",
+        "ステント留置後早期の胸痛は必ずステント血栓症を鑑別に入れる。特に<mark>DAPT中断・自己判断での休薬歴</mark>は重要な手がかりになる",
+        "<mark>ルーチンの酸素投与はもはや標準治療ではない</mark>(DETO2X-AMI試験)。正常酸素飽和度への投与は転帰を改善せず、SpO2 90%未満での投与にとどめる",
+        "大動脈解離は「引き裂かれるような」痛みや背部への移動、血圧左右差(20mmHg超)がヒントになる"
+      ],
+      refs:[
+        {author:"Gulati M, et al.(AHA/ACC/ASE/CHEST/SAEM/SCCT/SCMR)", title:"2021 Guideline for the Evaluation and Diagnosis of Chest Pain", source:"Circulation", year:"2021", url:"https://doi.org/10.1161/CIR.0000000000001029"},
+        {author:"Byrne RA, et al.(ESC)", title:"2023 ESC Guidelines for the management of acute coronary syndromes", source:"European Heart Journal", year:"2023", url:"https://doi.org/10.1093/eurheartj/ehad191"},
+        {author:"Hofmann R, et al.(DETO2X-AMI investigators)", title:"Oxygen Therapy in Suspected Acute Myocardial Infarction", source:"New England Journal of Medicine", year:"2017", url:"https://doi.org/10.1056/NEJMoa1706222"}
+      ]
+    },
+    {
+      id:"dyspnea", num:2, cat:"urgent", tag:"呼吸器・術後",
+      title:"肺血栓塞栓症(PE)の疑い",
+      hint:"72歳女性・開腹術後2日目・突然の呼吸苦とSpO2低下",
+      call:"先生、203号室の患者さんが急に息苦しいと言っていて、SpO2が88%まで下がっています。酸素を始めてもいいですか?",
+      background:"72歳女性。大腸癌に対し開腹結腸切除術を施行し、術後2日目。臥床期間が続いている。",
+      vitals:"BP 132/84　HR 118　RR 28　SpO2 88%(room air) → 酸素投与で92%",
+      verdict:"go", verdictLabel:"直ちに訪室",
+      answer:{
+        check:[
+          "発症様式(<mark>突然か徐々にか</mark>)、下肢の腫脹・疼痛(DVTを疑う所見)の有無",
+          "呼吸音の左右差(気胸・無気肺・胸水)、頸静脈怒張、喘鳴の有無",
+          "<mark>血行動態(収縮期血圧90mmHg未満、またはベースラインから40mmHg以上の低下)</mark>を確認し、ショックを伴うかどうかで対応の緊急度が変わることを意識する",
+          "酸素投与(目標SpO2 94%以上)を指示しつつ、経時的なSpO2とバイタルの変化を報告してもらう"
+        ],
+        danger:[
+          "開腹術後で臥床期間が長い患者の<mark>突然発症の低酸素・頻脈</mark>はまず肺血栓塞栓症(PE)を疑う",
+          "無気肺・誤嚥性肺炎・急性肺水腫・気胸との鑑別も並行して考える",
+          "<mark>血行動態が不安定なPE(ショックまたは持続する低血圧)は高リスクPEに分類され、血栓溶解療法の適応を要する</mark>",
+          "酸素化が一時的に改善しても、<mark>急速にショックへ進展</mark>しうることを念頭に置く"
+        ],
+        tests:[
+          "直ちに訪室、酸素投与(目標SpO2 94%以上、CO2ナルコーシスのリスクがなければ)とモニター装着",
+          "<mark>sPESI(簡易PESI)で早期死亡リスクを層別化</mark>したうえで、Dダイマー、心エコー(右室負荷評価)、造影CT(肺動脈相)を検討",
+          "<mark>血行動態が安定していれば未分画ヘパリンまたはDOACによる抗凝固療法を開始</mark>(腎機能・出血リスクを確認し上級医と相談)",
+          "<mark>ショックを伴う高リスクPEでは血栓溶解療法(rt-PA)やカテーテル治療・外科的血栓摘除を考慮</mark>し、直ちに上級医・循環器/呼吸器科へ報告"
+        ]
+      },
+      pearl:[
+        "術後急性発症の呼吸苦+頻脈+低酸素は、まずPEを除外する姿勢が安全。Wells scoreなど臨床予測ルールを併用する",
+        "<mark>sPESI/PESIによるリスク層別化は治療強度(モニタリングレベル・血栓溶解の適応)に直結する</mark>ため、疑った時点で計算する習慣をつける",
+        "酸素化が改善しても原因検索は省略しない。PEは「良くなったから様子見」で見逃されやすい",
+        "循環動態が不安定な場合は血栓溶解療法も選択肢になるため、疑った時点で早めに上級医へ共有する"
+      ],
+      refs:[
+        {author:"Konstantinides SV, et al.(ESC)", title:"2019 ESC Guidelines for the diagnosis and management of acute pulmonary embolism", source:"European Heart Journal", year:"2020", url:"https://doi.org/10.1093/eurheartj/ehz405"}
+      ]
+    },
+    {
+      id:"loc", num:3, cat:"urgent", tag:"代謝・脳血管",
+      title:"低血糖による意識障害",
+      hint:"80歳男性・インスリン治療中・呼びかけへの反応が鈍い",
+      call:"先生、704号室の患者さんですが、呼びかけへの反応が鈍くて、いつもよりぼーっとしています。診に来ていただけますか。",
+      background:"80歳男性。2型糖尿病でインスリン強化療法中、慢性腎臓病(CKD)あり。就寝前にインスリンを投与済み。",
+      vitals:"BP 138/78　HR 88　RR 16　SpO2 96%　体温36.8℃　意識レベル JCS I-2〜II-10相当",
+      verdict:"go", verdictLabel:"直ちに訪室",
+      answer:{
+        check:[
+          "<mark>簡易血糖測定</mark>を最優先で指示する(意識障害では低血糖をまず除外)",
+          "直近のインスリン・血糖降下薬の投与時刻と量、食事摂取状況",
+          "経口摂取が可能な意識レベルか(誤嚥のリスクがあれば無理に経口補正せず静脈路確保を優先する)",
+          "呼びかけへの反応の程度(JCS/GCS)、麻痺・瞳孔左右差の有無"
+        ],
+        danger:[
+          "<mark>低血糖の見逃し</mark>。治療可能かつ緊急性が高いにもかかわらず「様子観察」で済ませてしまうこと",
+          "<mark>CKD合併患者はインスリン・スルホニル尿素薬の腎排泄が遅延し、低血糖が遷延・再発しやすい</mark>",
+          "脳卒中(特に後方循環系)、敗血症性脳症、CO2ナルコーシス、薬剤性(オピオイド・ベンゾジアゼピン)の除外も並行する",
+          "<mark>JCS/GCSは伝聞ではなく自分の目で評価</mark>する。電話越しの「ぼーっとしている」は解釈に幅がある"
+        ],
+        tests:[
+          "直ちに訪室し意識レベル・瞳孔・麻痺の有無を評価",
+          "<mark>血糖50mg/dL未満など低血糖が強く疑われる意識障害では、静脈路を確保し50%ブドウ糖液40mL(ブドウ糖20g相当)を1〜3分かけて静脈内投与</mark>",
+          "<mark>投与後15分程度で血糖を再検し、改善が乏しければ同量を追加投与。意識回復後も持効型インスリンやSU薬の作用持続時間を踏まえ、数時間は低血糖の再発に注意し、必要に応じ10%ブドウ糖液の持続点滴を検討</mark>",
+          "血糖が正常で原因不明なら頭部CTを検討。麻痺や瞳孔異常があれば脳卒中対応を上級医と即相談"
+        ]
+      },
+      pearl:[
+        "意識障害の初期対応でまず除外すべきは「治療可能な原因」。低血糖・低酸素・循環不全はベッドサイドで数分以内に確認・是正できる",
+        "ブドウ糖投与で意識が改善しても安心せず、<mark>原因薬剤の作用時間(特に持効型インスリン・SU薬)を踏まえて数時間は血糖の再低下を警戒する</mark>",
+        "“AIUEOTIPS”のような鑑別フレームワークを使うと、電話越しの情報だけで慌てず優先順位をつけやすい",
+        "高齢者の意識障害はせん妄との鑑別が難しいが、急性発症・変動する意識レベルがあってもまず器質的疾患(特に低血糖)の除外を優先する"
+      ],
+      refs:[
+        {author:"Cryer PE, et al.(Endocrine Society)", title:"Evaluation and Management of Adult Hypoglycemic Disorders: An Endocrine Society Clinical Practice Guideline", source:"Journal of Clinical Endocrinology & Metabolism", year:"2009", url:"https://doi.org/10.1210/jc.2008-1410"}
+      ]
+    },
+    {
+      id:"shock", num:4, cat:"urgent", tag:"循環・消化器",
+      title:"消化管出血の再出血によるショック",
+      hint:"75歳男性・下血後内視鏡止血後・血圧低下と頻脈",
+      call:"先生、410号室の患者さんですが、血圧が82/50まで下がって脈も120まで上がっています。顔色もあまり良くないようです。",
+      background:"75歳男性。数日前に下血で入院し、内視鏡的止血術後で経過観察中。",
+      vitals:"BP 82/50　HR 122　RR 22　SpO2 95%　冷汗・顔面蒼白あり",
+      verdict:"go", verdictLabel:"直ちに訪室",
+      answer:{
+        check:[
+          "<mark>再出血の兆候</mark>(下血・吐血・ドレーン排液の性状と量)",
+          "意識レベル、尿量、四肢冷感・冷汗などショック徴候",
+          "静脈路が確保されているか、輸液を先行して開始できるか",
+          "<mark>直近のHb値・出血源(静脈瘤性か非静脈瘤性か)、抗血栓薬の使用歴</mark>"
+        ],
+        danger:[
+          "血圧低下は出血量がかなり進んでから顕在化する(代償機構)ため、<mark>「まだ血圧は保たれている」で安心しない</mark>",
+          "頻脈・頻呼吸は代償反応であり、<mark>正常血圧でもショックの初期像</mark>であることがある",
+          "出血以外にも敗血症性・心原性ショックの可能性を並行して考える",
+          "<mark>過剰な輸液・輸血はかえって再出血や死亡率上昇と関連しうる</mark>ため、目標を定めずに投与量を増やし続けない"
+        ],
+        tests:[
+          "直ちに訪室、<mark>末梢静脈路(できれば18G以上を2本)を確保し細胞外液500〜1000mLを急速輸液</mark>して反応(血圧・尿量)を評価",
+          "交差適合試験用の採血・輸血準備。<mark>Hb 7g/dL程度を目安とした制限的輸血戦略</mark>を基本とし、活動性出血や心疾患合併など個々の状況で上級医と調整",
+          "<mark>消化性潰瘍出血が疑われればプロトンポンプ阻害薬の静注を内視鏡前から開始</mark>",
+          "再出血が疑われれば緊急内視鏡・IVR・外科的介入を含め当該科・上級医へ即時報告。<mark>輸液・輸血に反応しない場合は大量輸血プロトコルの起動や昇圧薬使用も相談</mark>"
+        ]
+      },
+      pearl:[
+        "ショックの早期サインは血圧低下より先に<mark>頻脈・冷汗・尿量低下</mark>として現れることが多い。「血圧が下がってから動く」のでは遅い",
+        "Shock index(心拍数÷収縮期血圧)が1を超える場合は重症出血を疑う目安になる",
+        "<mark>Villanueva試験などから、上部消化管出血では制限的輸血戦略(Hb 7g/dL目標)が積極的輸血より予後良好と報告されている</mark>(虚血性心疾患合併など例外はある)",
+        "消化管出血の再出血は初回止血後24〜72時間以内に多く、この時期のバイタル変化には閾値を下げて対応する"
+      ],
+      refs:[
+        {author:"Laine L, Barkun AN, et al.(ACG)", title:"ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding", source:"American Journal of Gastroenterology", year:"2021", url:"https://doi.org/10.14309/ajg.0000000000001245"},
+        {author:"Villanueva C, et al.", title:"Transfusion Strategies for Acute Upper Gastrointestinal Bleeding", source:"New England Journal of Medicine", year:"2013", url:"https://doi.org/10.1056/NEJMoa1211801"}
+      ]
+    },
+    {
+      id:"fall", num:5, cat:"urgent", tag:"外傷",
+      title:"抗凝固薬内服中の頭部外傷",
+      hint:"85歳女性・ワルファリン内服中・転倒し頭部打撲",
+      call:"先生、308号室の患者さんが先ほどトイレに行く途中で転倒して、頭を打ったようです。本人は『大丈夫』と言っているのですが…",
+      background:"85歳女性。心房細動でワルファリンを内服中(抗凝固療法中)。認知機能は保たれている。",
+      vitals:"BP 142/86　HR 76　意識清明　頭部に軽度の腫脹あり　嘔吐なし",
+      verdict:"go", verdictLabel:"直ちに訪室",
+      answer:{
+        check:[
+          "受傷機転(頭部を打ったか、<mark>一過性の意識消失</mark>の有無)、抗凝固薬・抗血小板薬の内服状況",
+          "意識レベル・瞳孔所見・嘔気嘔吐・麻痺やしびれの有無",
+          "頭部以外の受傷部位(<mark>大腿骨頸部骨折</mark>を疑う股関節痛・下肢短縮・外旋の有無)",
+          "<mark>直近のINR値</mark>(治療域内か、治療域を超えていないか)"
+        ],
+        danger:[
+          "抗凝固薬内服中の頭部打撲は、<mark>その場で無症状でも遅発性の頭蓋内出血</mark>(硬膜下血腫など)を起こしうる",
+          "大腿骨頸部骨折は高齢者の転倒で見逃されやすく、活動性低下や誤嚥性肺炎などの合併症リスクを高める",
+          "転倒の背景にある<mark>一過性意識消失(失神・不整脈・起立性低血圧)</mark>を見逃さない",
+          "<mark>初回頭部CTが陰性でも、抗凝固薬内服中は数時間〜24時間後に出血が顕在化することがある</mark>"
+        ],
+        tests:[
+          "直ちに訪室し神経学的所見・受傷部位を評価",
+          "抗凝固薬内服中の頭部外傷は<mark>症状の有無にかかわらず頭部CTの適応を積極的に検討</mark>し、あわせてINRを確認",
+          "<mark>頭蓋内出血が確認された場合は、ビタミンK静注+4因子プロトロンビン複合体濃縮製剤(4F-PCC、新鮮凍結血漿より是正が速い)によるワルファリン拮抗を上級医・脳神経外科と相談し速やかに開始</mark>",
+          "<mark>初回CTが陰性でも神経症状の出現に注意し、必要に応じ6〜24時間後の再CTを検討</mark>。転倒の原因(不整脈、起立性低血圧、環境要因)も併せて評価し再発予防策を検討"
+        ]
+      },
+      pearl:[
+        "抗凝固薬内服中の頭部外傷は「今は無症状」が最も危険なパターン。症状出現を待たずCT撮影の閾値を下げる",
+        "<mark>ワルファリン内服中に頭蓋内出血が確認された場合、迅速なINR是正(4F-PCCがFFPより是正が速く優先される)が転帰を左右する</mark>",
+        "高齢者の転倒は「なぜ転んだか」を考えることが再発予防の第一歩。外傷評価だけで終わらせない",
+        "せん妄・薬剤性(睡眠薬・降圧薬)・起立性低血圧は転倒の頻度の高い誘因であり、内服薬の見直しも初期対応に含める"
+      ],
+      refs:[
+        {author:"Nishijima DK, et al.", title:"Immediate and Delayed Traumatic Intracranial Hemorrhage in Patients With Head Trauma and Preinjury Warfarin or Clopidogrel Use", source:"Annals of Emergency Medicine", year:"2012", url:"https://doi.org/10.1016/j.annemergmed.2012.02.007"},
+        {author:"Tomaselli GF, et al.(ACC Solution Set Oversight Committee)", title:"2020 ACC Expert Consensus Decision Pathway on Management of Bleeding in Patients on Oral Anticoagulants", source:"Journal of the American College of Cardiology", year:"2020", url:"https://doi.org/10.1016/j.jacc.2020.04.053"}
+      ]
+    },
+    {
+      id:"delirium", num:6, cat:"judgment", tag:"せん妄・精神",
+      title:"術後せん妄(身体的誘因の検索が先)",
+      hint:"79歳男性・術後3日目・夜間の強い不穏で眠剤を希望",
+      call:"先生、602号室の患者さんですが、夜になって急に『ここはどこだ』と大声を出したり点滴を抜こうとしたりして、興奮が強いです。眠剤を使ってもいいですか?",
+      background:"79歳男性。大腸癌術後3日目。日中は問題なく経過し、術前の認知機能は正常だった。",
+      vitals:"BP 150/90　HR 108　RR 20　SpO2 91%(room air)　体温37.2℃",
+      verdict:"go", verdictLabel:"まず訪室して評価",
+      answer:{
+        check:[
+          "<mark>バイタルサイン全項目(特にSpO2・血糖)</mark>をまず確認する",
+          "急性発症か、日内変動があるか(せん妄の特徴)、疼痛や尿閉・便秘など身体的な誘因の有無",
+          "現在使用中の薬剤(オピオイド、ベンゾジアゼピン、抗コリン薬など)の確認",
+          "自己抜去の対象(点滴・カテーテル)と<mark>転倒・転落や自己抜去による実害が切迫しているか</mark>"
+        ],
+        danger:[
+          "「不穏=眠剤で鎮静」と<mark>安易に判断し、低酸素血症・低血糖など治療可能な身体的原因を見逃す</mark>こと",
+          "ベンゾジアゼピン系睡眠薬は高齢者のせん妄をむしろ悪化させ、<mark>転倒・呼吸抑制</mark>のリスクも高める",
+          "尿閉・便秘・疼痛など「隠れた身体的誘因」に気づかず対症療法だけで終わらせること",
+          "<mark>身体拘束は自己抜去防止に有効に見えるが、せん妄自体を悪化させうるため必要最小限にとどめる</mark>"
+        ],
+        tests:[
+          "訪室してバイタル・SpO2・血糖を確認し、身体的原因(低酸素、疼痛、尿閉など)を除外",
+          "非薬物的介入(見当識の付与、時計・照明・環境調整、可能なら家族への連絡)を優先",
+          "<mark>薬物療法が必要な場合はベンゾジアゼピン系を避け、クエチアピン12.5〜25mgやリスペリドン0.5mg程度の少量の非定型抗精神病薬から開始</mark>を上級医と相談(<mark>パーキンソン病・レビー小体型認知症の既往があれば抗精神病薬で症状が悪化しうるため特に慎重に判断する</mark>)",
+          "<mark>ハロペリドールを使用する場合はQT延長のリスクがあり、特に静脈内投与は不整脈リスクが高いため心電図モニタリングを検討する</mark>"
+        ]
+      },
+      pearl:[
+        "せん妄の合言葉は「急性発症・変動する経過・注意力低下」。電話の時点でこれらを満たすかを意識するだけで対応の質が変わる",
+        "「不穏だから眠剤」という反射的な指示は、低酸素や急性腹症などの見逃しにつながる典型的な落とし穴",
+        "ベンゾジアゼピン系薬剤は高齢者のせん妄治療における第一選択ではなく、むしろせん妄を遷延・悪化させうる",
+        "<mark>早期離床や昼夜のメリハリ、見当識付与などの非薬物的アプローチ(HELPプログラムなど)はせん妄の発症・重症度を減らすエビデンスがあり、薬物療法より優先される</mark>"
+      ],
+      refs:[
+        {author:"Inouye SK, Westendorp RG, Saczynski JS.", title:"Delirium in elderly people", source:"The Lancet", year:"2014", url:"https://doi.org/10.1016/S0140-6736(13)60688-1"},
+        {author:"Marcantonio ER.", title:"Delirium in Hospitalized Older Adults", source:"New England Journal of Medicine", year:"2017", url:"https://doi.org/10.1056/NEJMcp1605501"},
+        {author:"American Geriatrics Society 2023 Beers Criteria Update Expert Panel", title:"American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults", source:"Journal of the American Geriatrics Society", year:"2023", url:"https://doi.org/10.1111/jgs.18372"}
+      ]
+    },
+    {
+      id:"oliguria", num:7, cat:"judgment", tag:"腎・循環",
+      title:"体液過剰を伴う乏尿(心不全増悪の可能性)",
+      hint:"83歳女性・心不全既往・絶食補液中に尿量低下",
+      call:"先生、510号室の患者さんですが、ここ6時間の尿量が50mlしか出ていません。追加で点滴を増やしてもいいですか?",
+      background:"83歳女性。慢性心不全(左室駆出率低下)の既往があり、腸閉塞のため絶食・末梢輸液で管理中。",
+      vitals:"BP 108/64　HR 92　SpO2 94%(room air)　入院時から体重+2kg、下腿浮腫あり、頸静脈やや怒張",
+      verdict:"phone", verdictLabel:"電話評価のうえ判断",
+      answer:{
+        check:[
+          "<mark>尿道カテーテルの閉塞・尿閉の有無</mark>を機械的にまず除外する",
+          "直近のin-outバランス、体重変化、下腿浮腫・頸静脈怒張など体液過剰の所見",
+          "血圧・脈拍などの循環動態、直近の腎機能(Cr)の推移",
+          "<mark>NSAIDsや造影剤など腎毒性のある薬剤・検査が最近使われていないか</mark>"
+        ],
+        danger:[
+          "「尿量が少ない=脱水」と決めつけて<mark>安易に輸液を増やすと、心不全がある患者では肺水腫を悪化</mark>させうる",
+          "尿道カテーテルの閉塞や神経因性膀胱による<mark>尿閉を腎前性の乏尿と誤認</mark>すること",
+          "腎機能の推移を確認せず経過観察のみで急性腎障害(AKI)の進行を見逃すこと",
+          "<mark>体液量評価が不十分なまま利尿薬を投与すると、実際は脱水だった場合に腎前性AKIを悪化させうる</mark>ため、評価を飛ばして薬物介入しない"
+        ],
+        tests:[
+          "訪室し、まずカテーテル閉塞・尿閉を触診・エコーで除外する。<mark>閉塞が疑われればカテーテル交換や膀胱洗浄を行う</mark>",
+          "体液量評価(浮腫・頸静脈怒張・体重・in-outバランス)を行い、<mark>体液過剰が明らかであれば輸液を増やさずフロセミド10〜20mg静注などの利尿を検討</mark>(腎機能・電解質を踏まえ上級医と相談)",
+          "<mark>腎機能(Cr、BUN)・電解質に加え尿中Na・尿素窒素(FeNa・FeUrea)を確認し、腎前性か腎性かの鑑別材料とする</mark>",
+          "体液量評価に自信が持てない場合は無理に単独判断せず、上級医と輸液・利尿の方針をすり合わせる"
+        ]
+      },
+      pearl:[
+        "尿量低下への反射的な「輸液を増やす」対応は、心不全や体液過剰がある患者では逆効果になりうる。まず体液量評価が先",
+        "乏尿の鑑別は腎前性・腎性・腎後性に分けて考える。カテーテル閉塞という腎後性の原因は電話越しでも真っ先に除外できる",
+        "KDIGO基準は尿量0.5mL/kg/時未満が6時間以上続く場合をAKIの目安の一つとしており、<mark>体重あたりの尿量</mark>で評価する習慣をつける",
+        "<mark>FeNa<1%は腎前性を示唆するが、利尿薬使用中はナトリウム排泄が変動するためFeUreaの方が信頼性が高いとされる</mark>"
+      ],
+      refs:[
+        {author:"Kidney Disease: Improving Global Outcomes (KDIGO) Acute Kidney Injury Work Group", title:"KDIGO Clinical Practice Guideline for Acute Kidney Injury", source:"Kidney International Supplements", year:"2012", url:"https://doi.org/10.1038/kisup.2012.1"}
+      ]
+    },
+    {
+      id:"insomnia", num:8, cat:"judgment", tag:"薬剤・老年",
+      title:"不眠の背景検索と睡眠薬適正使用",
+      hint:"74歳男性・入院2日目・不眠時指示なしで眠剤を希望",
+      call:"先生、205号室の患者さんが『眠れないので眠剤をください』とおっしゃっています。指示簿に不眠時指示が入っていないのですが、出してもいいですか?",
+      background:"74歳男性。誤嚥性肺炎で入院2日目。既往に前立腺肥大、軽度の認知機能低下あり。",
+      vitals:"BP 128/78　HR 76　SpO2 95%(room air)　体温36.5℃　呼吸状態は落ち着いている",
+      verdict:"phone", verdictLabel:"電話評価のうえ判断",
+      answer:{
+        check:[
+          "眠れない原因(疼痛、掻痒感、頻尿、<mark>せん妄の前駆症状</mark>、環境要因など)がないか",
+          "普段の睡眠薬使用歴、腎機能・呼吸状態、併用薬(オピオイドなど呼吸抑制を増強する薬剤の有無)",
+          "転倒リスク(ふらつき歩行、夜間トイレ歩行の有無)、認知機能低下の有無",
+          "<mark>市販の抗ヒスタミン系睡眠薬など、指示簿に載らない抗コリン作用のある薬剤を自己判断で使っていないか</mark>"
+        ],
+        danger:[
+          "高齢者へのベンゾジアゼピン系睡眠薬は<mark>転倒・骨折・せん妄・呼吸抑制</mark>のリスクを高める(前立腺肥大では尿閉を誘発することも)",
+          "「眠れない」の背景に低酸素・疼痛・せん妄の前駆症状が隠れていることがあり、<mark>原因検索なしに睡眠薬だけで対応すると悪化に気づけない</mark>",
+          "誤嚥性肺炎など呼吸器疾患のある患者への睡眠薬は、呼吸抑制のリスクを増悪させうる",
+          "<mark>ジフェンヒドラミンなど第一世代抗ヒスタミン薬は強い抗コリン作用があり、前立腺肥大症の尿閉やせん妄を助長しうる</mark>ため安易に選ばない"
+        ],
+        tests:[
+          "まず不眠の原因(疼痛・頻尿・環境)を確認し、可能なら非薬物的対応(消灯・室温調整・排尿誘導)を優先",
+          "<mark>薬剤が必要な場合はメラトニン受容体作動薬(ラメルテロン)やオレキシン受容体拮抗薬(スボレキサント)など、転倒・せん妄リスクが相対的に低いとされる薬剤を少量から検討</mark>し、ベンゾジアゼピン系および<mark>Z薬(ゾルピデムなど)も避ける</mark>",
+          "呼吸状態に不安がある場合や不眠を繰り返す場合は、翌日の主治医評価につなげる"
+        ]
+      },
+      pearl:[
+        "「不眠時指示がない」電話は一見軽い相談に見えるが、高齢入院患者への睡眠薬処方は<mark>転倒・せん妄・呼吸抑制</mark>という3つの合併症リスクと隣り合わせ",
+        "AGS Beers Criteriaは、ベンゾジアゼピン系睡眠薬を高齢者では可能な限り避けるべき薬剤として明記している",
+        "<mark>Z薬(ゾルピデムなど)はベンゾジアゼピン系ではないが、高齢者での転倒・骨折リスクの上昇がベンゾジアゼピン系と同程度に報告されており、Beers Criteriaでも同様の注意が必要とされている</mark>",
+        "「眠れない」という訴えの裏に疼痛・頻尿・せん妄前駆症状が隠れていないか、一呼吸置いて考える習慣が電話対応の質を左右する"
+      ],
+      refs:[
+        {author:"American Geriatrics Society 2023 Beers Criteria Update Expert Panel", title:"American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults", source:"Journal of the American Geriatrics Society", year:"2023", url:"https://doi.org/10.1111/jgs.18372"}
+      ]
+    }
+  ];
+
+  var PROMPTS = [
+    {key:"check", label:"電話でまず確認すること", ph:"追加で聞くべき問診・バイタル項目など…"},
+    {key:"danger", label:"見落とすと危険な病態", ph:"進展しうる重篤な病態、注意すべきRed flagなど…"},
+    {key:"tests", label:"初期対応・指示", ph:"訪室要否、初期指示、検査など…"}
+  ];
+
+  var FLOW = [
+    {t:"電話でまず聞く", d:"主訴・発症様式・バイタル全項目を数字で聞く。「元気がない」「様子がおかしい」といった伝聞表現は具体的な数値・所見に言い換えてもらう。"},
+    {t:"緊急度を判断する", d:"「今すぐ訪室すべきか」をこの電話の時点で決める。判断に迷うこと自体が、訪室すべきサインだと考える。"},
+    {t:"自分の目で確認する", d:"意識レベル・呼吸音・患部などを訪室して直接評価する。電話の情報だけで安心して対応を終えない。"},
+    {t:"見落とし厳禁な鑑別を必ず除外する", d:"「経過観察」で済ませられない病態がないか、症例ごとのRed flagを一度は鑑別に挙げる。"},
+    {t:"指示を出し、早めに相談する", d:"初期対応を指示し、判断に迷う・重症感があれば方針を決め切る前に上級医へ共有する。"}
+  ];
+
+  var STORE_KEY = "oncall_progress_v1";
+  var DRAFT_KEY = "oncall_drafts_v1";
+
+  function loadProgress(){
+    try{
+      var p = JSON.parse(localStorage.getItem(STORE_KEY));
+      return (p && typeof p === "object" && !Array.isArray(p)) ? p : {};
+    }catch(e){ return {}; }
+  }
+  function saveProgress(p){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(p)); return true; }catch(e){ return false; }
+  }
+  function loadDrafts(){
+    try{
+      var d = JSON.parse(localStorage.getItem(DRAFT_KEY));
+      return (d && typeof d === "object" && !Array.isArray(d)) ? d : {};
+    }catch(e){ return {}; }
+  }
+  function saveDrafts(d){
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); return true; }catch(e){ return false; }
+  }
+
+  // Soft data-integrity check: warns in the console (never blocks rendering) if a future
+  // edit breaks the id/num invariants that case-card status lookup and case-to-case
+  // navigation both rely on.
+  (function validateCasesData(){
+    var seenIds = {}, seenNums = {}, ok = true;
+    CASES.forEach(function(c, i){
+      if(seenIds[c.id]) ok = false;
+      seenIds[c.id] = true;
+      if(seenNums[c.num]) ok = false;
+      seenNums[c.num] = true;
+      if(c.num !== i+1) ok = false;
+    });
+    if(!ok && typeof console !== "undefined" && console.warn){
+      console.warn("[oncall] CASES data integrity check failed: ids/nums are not unique and sequential. Case navigation and status tracking may misbehave.");
+    }
+  })();
+
+  var state = {
+    view:"home",          // home | case | keitai
+    caseId:null,
+    reviewOnly:false,
+    progress: loadProgress()
+  };
+
+  var lastSaveFailed = false;
+
+  var app = document.getElementById("app");
+
+  function escapeHtml(s){
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  var VALID_STATUSES = ["good","partial","poor"];
+  // Whitelists a status value before it is ever concatenated into HTML. state.progress is
+  // loaded from localStorage, which a user (or another script sharing the origin) can edit
+  // directly — never trust its values enough to treat them as safe HTML/attribute text.
+  function safeStatus(s){
+    return VALID_STATUSES.indexOf(s) !== -1 ? s : "none";
+  }
+
+  function statusLabel(s){
+    if(s==="good") return "自力で言えた";
+    if(s==="partial") return "一部抜けた";
+    if(s==="poor") return "ほぼ言えなかった";
+    return "未挑戦";
+  }
+
+  function caseById(id){
+    for(var i=0;i<CASES.length;i++){ if(CASES[i].id===id) return CASES[i]; }
+    return null;
+  }
+
+  function completedCount(){
+    var n=0;
+    for(var i=0;i<CASES.length;i++){ if(state.progress[CASES[i].id]) n++; }
+    return n;
+  }
+  function masteredCount(){
+    var n=0;
+    for(var i=0;i<CASES.length;i++){ if(state.progress[CASES[i].id]==="good") n++; }
+    return n;
+  }
+  function reviewCases(){
+    return CASES.filter(function(c){
+      var s = state.progress[c.id];
+      return s === "partial" || s === "poor";
+    });
+  }
+
+  function go(view, caseId){
+    state.view = view;
+    state.caseId = caseId || null;
+    render();
+    window.scrollTo(0,0);
+  }
+
+  /* ---------------- RENDER: HOME ---------------- */
+  function renderHome(){
+    var done = completedCount();
+    var mastered = masteredCount();
+    var total = CASES.length;
+    var pct = Math.round(mastered/total*100);
+    var rev = reviewCases();
+
+    var circumference = 2*Math.PI*24;
+    var offset = circumference * (1 - pct/100);
+
+    var subLine;
+    if(done < total){
+      subLine = (total-done)+"症例が未挑戦";
+    } else if(rev.length){
+      subLine = "復習対象が "+rev.length+" 症例あります";
+    } else {
+      subLine = "全症例クリアです";
+    }
+
+    var html = "";
+    html += '<div class="hero">';
+    html += '  <div class="eyebrow">院内コール 当直トレーニング</div>';
+    html += '  <h1>院内コール<br>当直トレーニング</h1>';
+    html += '  <p>夜間、看護師からかかってくる8つのコールを疑似体験します。答えを見る前に、自分の言葉で「電話でまず確認すること」「見落とすと危険な病態」「初期対応・指示」を書き出してみましょう。</p>';
+    html += '</div>';
+
+    html += '<div class="progress-card">';
+    html += '  <div class="progress-ring"><svg width="56" height="56"><circle cx="28" cy="28" r="24" stroke="var(--surface-2)" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="24" stroke="var(--primary)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'"/></svg><div class="pct">'+pct+'%</div></div>';
+    html += '  <div class="progress-text"><div class="num">'+mastered+' / '+total+' 症例 自力で言えた</div><div class="sub">'+subLine+'</div></div>';
+    if(rev.length){
+      html += '  <button class="review-pill-btn" data-action="toggle-review">復習</button>';
+    }
+    html += '</div>';
+
+    html += '<button class="keitai-cta" data-action="goto-keitai"><span><span class="t">コール対応の「型」を見る</span><span class="s">電話で聞く→緊急度判断→自分の目で確認→鑑別→指示・相談</span></span><span class="arrow">›</span></button>';
+
+    if(state.reviewOnly){
+      html += '<div class="section-head"><span class="dot" style="background:var(--warn)"></span><h2>復習対象の症例</h2><span class="count">'+rev.length+'件</span></div>';
+      if(rev.length===0){
+        html += '<div class="empty-review">復習対象の症例はありません。<br>「一覧」から症例を確認できます。</div>';
+      } else {
+        html += '<div class="case-grid">'+rev.map(caseCardHtml).join("")+'</div>';
+      }
+    } else {
+      var urgent = CASES.filter(function(c){return c.cat==="urgent";});
+      var judgment = CASES.filter(function(c){return c.cat==="judgment";});
+      html += '<div class="section-head urgent"><span class="dot"></span><h2>緊急性の高いコール</h2><span class="count">'+urgent.length+'症例</span></div>';
+      html += '<div class="case-grid">'+urgent.map(caseCardHtml).join("")+'</div>';
+      html += '<div class="section-head judgment"><span class="dot"></span><h2>判断力が問われるコール</h2><span class="count">'+judgment.length+'症例</span></div>';
+      html += '<div class="case-grid">'+judgment.map(caseCardHtml).join("")+'</div>';
+    }
+
+    return html;
+  }
+
+  function caseCardHtml(c){
+    var status = safeStatus(state.progress[c.id]);
+    var numStr = (c.num<10?"0":"")+c.num;
+    return '<button class="case-card" data-action="open-case" data-id="'+c.id+'">'+
+      '<span class="case-num">'+numStr+'</span>'+
+      '<span class="case-body"><span class="hint">'+c.hint+'</span></span>'+
+      '<span class="status-chip '+status+'">'+statusLabel(status)+'</span>'+
+    '</button>';
+  }
+
+  /* ---------------- RENDER: CASE ---------------- */
+  var revealCache = {}; // caseId -> bool (revealed) — intentionally session-only (resets each visit)
+  var draftCache = loadDrafts(); // caseId -> {check,danger,tests} — persisted to localStorage, debounced
+  var pendingStatus = {}; // caseId -> chosen status this session (before/while confirming)
+
+  function renderCase(c){
+    var html = "";
+    html += '<div class="case-hero"><div class="tag">症例 '+(c.num<10?"0":"")+c.num+'</div><h1>'+c.hint+'</h1></div>';
+    html += '<div class="call-bubble"><div class="cb-label">📞 看護師からの電話</div><p>'+c.call+'</p></div>';
+    html += '<div class="vignette">'+c.background+'<div class="vitals-mono"><span class="lbl">VITALS</span>'+c.vitals+'</div></div>';
+
+    var revealed = !!revealCache[c.id];
+    var drafts = draftCache[c.id] || {};
+
+    html += '<div id="prompts">';
+    PROMPTS.forEach(function(p, i){
+      html += '<div class="prompt-block">';
+      html += '<label><span class="n">'+(i+1)+'.</span>'+p.label+'</label>';
+      html += '<textarea data-field="'+p.key+'" placeholder="'+p.ph+'">'+ (drafts[p.key] ? escapeHtml(drafts[p.key]) : "") +'</textarea>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if(!revealed){
+      html += '<button class="reveal-btn" data-action="reveal">模範解答を見る</button>';
+    } else {
+      html += renderAnswer(c);
+    }
+
+    return html;
+  }
+
+  function renderAnswer(c){
+    var catLabel = c.cat==="urgent" ? "緊急性の高いコール" : "判断力が問われるコール";
+    var html = '<div class="answer-wrap">';
+    html += '<div class="diagnosis-reveal"><div class="dr-eyebrow">正解</div><div class="dr-title">'+c.title+'</div><div class="dr-sub">'+catLabel+'・'+c.tag+'</div>';
+    html += '<div class="verdict-badge '+c.verdict+'">'+(c.verdict==="go"?"🚨 ":"☎ ")+c.verdictLabel+'</div>';
+    html += '</div>';
+    html += '<div class="divider"><div class="line"></div><span>模範解答</span><div class="line"></div></div>';
+
+    html += answerCard("check","電話でまず確認すること", c.answer.check);
+    html += answerCard("danger","見落とすと危険な病態", c.answer.danger);
+    html += answerCard("tests","初期対応・指示", c.answer.tests);
+
+    html += renderPearl(c);
+    html += renderRefs(c);
+
+    html += '</div>';
+
+    html += '<div class="assess-block">';
+    html += '<div class="q">自分の答えと照らし合わせて、自己評価しましょう</div>';
+    var cur = pendingStatus[c.id] || state.progress[c.id] || "";
+    html += '<div class="assess-row">';
+    html += assessBtn("good","自力で言えた", cur);
+    html += assessBtn("partial","一部抜けた", cur);
+    html += assessBtn("poor","ほぼ言えなかった", cur);
+    html += '</div>';
+    if(cur && lastSaveFailed){
+      html += '<div class="save-warning">⚠ この端末には保存できませんでした。プライベートブラウズ中か、ストレージが無効になっている可能性があります。この記録はこの画面を離れると失われます。</div>';
+    }
+    html += '</div>';
+
+    if(cur){
+      html += '<div class="after-assess">';
+      html += '<button class="nav-btn primary" data-action="next-case">次の症例へ</button>';
+      html += '<button class="nav-btn ghost" data-action="goto-home">一覧に戻る</button>';
+      html += '</div>';
+    }
+
+    return html;
+  }
+
+  function answerCard(kind, label, items){
+    var iconChar = kind==="check" ? "1" : kind==="danger" ? "!" : "2";
+    return '<div class="answer-card"><h3><span class="ico '+kind+'">'+iconChar+'</span>'+label+'</h3>'+
+      '<ul>'+items.map(function(t){return '<li>'+t+'</li>';}).join("")+'</ul></div>';
+  }
+
+  // Optional summary bullets (c.pearl, array of strings) giving background/mechanism beyond
+  // the three self-test cards. Omitted entirely if a case has no pearl content.
+  function renderPearl(c){
+    if(!c.pearl || !c.pearl.length) return "";
+    var items = c.pearl.map(function(t){ return '<li>'+t+'</li>'; }).join("");
+    return '<div class="pearl-block"><div class="pb-label">症例のまとめ</div><ul>'+items+'</ul></div>';
+  }
+
+  // Per-case reference list is optional data (c.refs). Cases without reliable/relevant
+  // citations simply omit the field — this renders nothing rather than forcing a section.
+  function renderRefs(c){
+    if(!c.refs || !c.refs.length) return "";
+    var items = c.refs.map(refEntryHtml).join("");
+    return '<div class="refs-block"><h4>参考</h4><ol>'+items+'</ol></div>';
+  }
+
+  function refEntryHtml(r){
+    var citationParts = [];
+    if(r.author) citationParts.push(escapeHtml(r.author));
+    if(r.title) citationParts.push(escapeHtml(r.title));
+    var pub = [];
+    if(r.source) pub.push(escapeHtml(r.source));
+    if(r.year) pub.push(escapeHtml(String(r.year)));
+    if(pub.length) citationParts.push(pub.join(" "));
+    var text = citationParts.join("．");
+    var linkHtml = "";
+    if(r.url){
+      linkHtml = '<br><a href="'+escapeHtml(r.url)+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(r.url)+'</a>';
+    }
+    return '<li>'+text+linkHtml+'</li>';
+  }
+
+  function assessBtn(kind, label, cur){
+    return '<button class="assess-btn '+kind+(cur===kind?' active':'')+'" data-action="assess" data-kind="'+kind+'">'+label+'</button>';
+  }
+
+  /* ---------------- RENDER: KEITAI ---------------- */
+  function renderKeitai(){
+    var html = "";
+    html += '<div class="keitai-hero"><div class="eyebrow">コール対応の型</div><h1>どんな内容のコールでも、まずこの順番で考える</h1><p>コールの内容が何であれ、当直対応の初動はこの5ステップが基本の型になります。症例ごとの知識より先に、この流れを体に染み込ませましょう。</p></div>';
+    html += '<div class="escalation-note"><div class="en-label">⚡ いつでも・早ければ早いほど</div><div class="en-body">上級医への相談はこの流れの「最後」ではありません。判断に迷う・重症感がある時点で、<mark>指示を決め切るより先に</mark>共有してください。一人で抱え込まないこと自体が初動の一部です。</div></div>';
+    html += '<div class="flow">';
+    FLOW.forEach(function(f,i){
+      html += '<div class="flow-step">';
+      html += '<div class="rail"><div class="node">'+(i+1)+'</div>'+(i<FLOW.length-1?'<div class="stem"></div>':'')+'</div>';
+      html += '<div class="content"><h3>'+f.t+'</h3><p>'+f.d+'</p></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '<div class="keitai-foot">迷ったら、この5つに立ち返る。</div>';
+    return html;
+  }
+
+  /* ---------------- MASTER RENDER ---------------- */
+  function render(){
+    var topbarHtml, mainHtml;
+
+    if(state.view==="home"){
+      topbarHtml = state.reviewOnly
+        ? '<button class="back" data-action="goto-home-full">‹ 一覧</button><div class="title">復習リスト</div>'
+        : '<div class="title">院内コール当直トレーニング</div>';
+      mainHtml = renderHome();
+    } else if(state.view==="case"){
+      var c = caseById(state.caseId);
+      if(!c){
+        // Unknown/stale case id (should not happen via normal UI navigation, but never
+        // let a bad id crash the whole render — fall back to the home screen instead).
+        state.view = "home";
+        state.caseId = null;
+        return render();
+      }
+      var numStr = (c.num<10?"0":"")+c.num;
+      topbarHtml = '<button class="back" data-action="goto-home">‹ 一覧</button><div class="title">症例 '+numStr+'</div>';
+      mainHtml = renderCase(c);
+    } else if(state.view==="keitai"){
+      topbarHtml = '<button class="back" data-action="goto-home">‹ 一覧</button><div class="title">コール対応の型</div>';
+      mainHtml = renderKeitai();
+    }
+
+    app.innerHTML = '<div class="topbar">'+topbarHtml+'</div><main>'+mainHtml+'</main>';
+    bindEvents();
+  }
+
+  /* ---------------- EVENTS ---------------- */
+  // When in review mode, "次の症例へ" should walk the review queue, not the full case list —
+  // otherwise the whole point of filtering down to just the cases that need another pass is
+  // lost the moment you finish the first one. Falls back to the full list if the review
+  // queue is empty (e.g. the case just answered was the last one still needing review).
+  function nextCaseAfter(current){
+    var pool = state.reviewOnly ? reviewCases() : CASES;
+    if(pool.length === 0){ pool = CASES; }
+    var idx = -1;
+    for(var i=0;i<pool.length;i++){ if(pool[i].id===current.id){ idx = i; break; } }
+    return idx === -1 ? pool[0] : pool[(idx+1) % pool.length];
+  }
+
+  function bindEvents(){
+    app.querySelectorAll("[data-action]").forEach(function(el){
+      el.addEventListener("click", function(){
+        var action = el.getAttribute("data-action");
+        if(action==="open-case"){
+          revealCache[el.getAttribute("data-id")] = false;
+          delete pendingStatus[el.getAttribute("data-id")];
+          lastSaveFailed = false;
+          go("case", el.getAttribute("data-id"));
+        } else if(action==="goto-home"){
+          // Keep whatever reviewOnly state we already had — a user backing out of a case
+          // they opened from the review list should land back in the review list, not be
+          // silently dropped into the full case list.
+          go("home");
+        } else if(action==="goto-home-full"){
+          state.reviewOnly = false;
+          render();
+        } else if(action==="toggle-review"){
+          state.reviewOnly = true;
+          render();
+        } else if(action==="goto-keitai"){
+          go("keitai");
+        } else if(action==="reveal"){
+          collectDraft(state.caseId, true);
+          revealCache[state.caseId] = true;
+          render();
+          var wrap = app.querySelector(".answer-wrap");
+          if(wrap) wrap.scrollIntoView({behavior:"smooth", block:"start"});
+        } else if(action==="assess"){
+          var kind = el.getAttribute("data-kind");
+          var c0 = caseById(state.caseId);
+          if(!c0) return;
+          pendingStatus[state.caseId] = kind;
+          state.progress[state.caseId] = kind;
+          lastSaveFailed = !saveProgress(state.progress);
+          render();
+        } else if(action==="next-case"){
+          var c = caseById(state.caseId);
+          if(!c) return;
+          var next = nextCaseAfter(c);
+          revealCache[next.id] = false;
+          delete pendingStatus[next.id];
+          go("case", next.id);
+        }
+      });
+    });
+
+    app.querySelectorAll("textarea[data-field]").forEach(function(ta){
+      ta.addEventListener("input", function(){
+        collectDraft(state.caseId, false);
+      });
+    });
+  }
+
+  var draftSaveTimer = null;
+  function collectDraft(caseId, flushNow){
+    var d = {};
+    app.querySelectorAll("textarea[data-field]").forEach(function(ta){
+      d[ta.getAttribute("data-field")] = ta.value;
+    });
+    draftCache[caseId] = d;
+    if(draftSaveTimer){ clearTimeout(draftSaveTimer); draftSaveTimer = null; }
+    if(flushNow){
+      saveDrafts(draftCache);
+    } else {
+      draftSaveTimer = setTimeout(function(){ saveDrafts(draftCache); }, 400);
+    }
+  }
+  // Best-effort: flush any pending debounced draft save if the tab is closed/backgrounded
+  // before the timer fires (mobile browsers routinely discard backgrounded tabs).
+  window.addEventListener("pagehide", function(){ saveDrafts(draftCache); });
+  document.addEventListener("visibilitychange", function(){
+    if(document.visibilityState === "hidden") saveDrafts(draftCache);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
