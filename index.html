@@ -15,16 +15,16 @@
     --surface-2:#EAECF6;
     --ink:#171B34;
     --ink-soft:#565E82;
-    --ink-faint:#8891B0;
+    --ink-faint:#63698D;
     --line:#DCE0EF;
     --primary:#3C4B8C;
     --primary-strong:#262F5E;
     --primary-tint:#E6E9F7;
-    --accent:#BC7A2E;
+    --accent:#8F5D1C;
     --accent-tint:#FAEDDC;
-    --good:#2E7D53;
+    --good:#2A7049;
     --good-tint:#E3F3EA;
-    --warn:#BC7A2E;
+    --warn:#8F5D1C;
     --warn-tint:#FAEDDC;
     --bad:#B23A3A;
     --bad-tint:#FBE7E5;
@@ -32,6 +32,7 @@
     --mono-ink:#D9DEF7;
     --mono-accent:#8FE3C7;
     --shadow: 0 1px 2px rgba(16,20,45,.06), 0 6px 20px rgba(16,20,45,.06);
+    --on-primary:#FFFFFF; --on-good:#FFFFFF; --on-warn:#FFFFFF; --on-bad:#FFFFFF; --on-accent:#FFFFFF;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
@@ -40,7 +41,7 @@
       --surface-2:#1E2340;
       --ink:#E9EBFA;
       --ink-soft:#A6ACD6;
-      --ink-faint:#767CA8;
+      --ink-faint:#8B91BC;
       --line:#2B3159;
       --primary:#8B98E8;
       --primary-strong:#B3BDF2;
@@ -57,6 +58,7 @@
       --mono-ink:#C9D0F5;
       --mono-accent:#7FF2D4;
       --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+      --on-primary:#0D0F1F; --on-good:#0D0F1F; --on-warn:#0D0F1F; --on-bad:#0D0F1F; --on-accent:#0D0F1F;
     }
   }
   :root[data-theme="dark"]{
@@ -65,7 +67,7 @@
     --surface-2:#1E2340;
     --ink:#E9EBFA;
     --ink-soft:#A6ACD6;
-    --ink-faint:#767CA8;
+    --ink-faint:#8B91BC;
     --line:#2B3159;
     --primary:#8B98E8;
     --primary-strong:#B3BDF2;
@@ -82,6 +84,7 @@
     --mono-ink:#C9D0F5;
     --mono-accent:#7FF2D4;
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+    --on-primary:#0D0F1F; --on-good:#0D0F1F; --on-warn:#0D0F1F; --on-bad:#0D0F1F; --on-accent:#0D0F1F;
   }
 
   *{box-sizing:border-box;}
@@ -152,7 +155,7 @@
   .progress-text .sub{font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
   .review-pill-btn{
     appearance:none; border:1px solid var(--warn); background:var(--warn-tint); color:var(--warn);
-    font-weight:700; font-size:12.5px; padding:8px 12px; border-radius:999px; cursor:pointer;
+    font-weight:700; font-size:12.5px; padding:11px 14px; min-height:44px; border-radius:999px; cursor:pointer;
     white-space:nowrap; font-family:inherit;
   }
   .keitai-cta{
@@ -246,13 +249,14 @@
 
   .reveal-btn{
     width:100%; margin-top:24px; appearance:none; border:none; cursor:pointer;
-    background:var(--primary); color:#fff; font-weight:700; font-size:15px;
+    background:var(--primary); color:var(--on-primary); font-weight:700; font-size:15px;
     padding:15px; border-radius:14px; font-family:inherit;
     box-shadow:0 4px 14px rgba(60,75,140,.32);
   }
   .reveal-btn:active{ transform:scale(.99); }
 
   .answer-wrap{ margin-top:28px; }
+  .answer-wrap:focus{ outline:none; }
   .diagnosis-reveal{
     background:var(--primary-tint); border:1.5px solid var(--primary); border-radius:16px;
     padding:18px 20px; margin-bottom:20px; text-align:center;
@@ -283,11 +287,11 @@
   .answer-card h3{ font-size:13.5px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:10px; }
   .answer-card h3 .ico{
     width:22px;height:22px;border-radius:7px;flex:none; display:flex;align-items:center;justify-content:center;
-    font-size:12px; font-weight:900; color:#fff;
+    font-size:12px; font-weight:900;
   }
-  .ico.check{background:var(--primary);}
-  .ico.danger{background:var(--bad);}
-  .ico.tests{background:var(--accent);}
+  .ico.check{background:var(--primary); color:var(--on-primary);}
+  .ico.danger{background:var(--bad); color:var(--on-bad);}
+  .ico.tests{background:var(--accent); color:var(--on-accent);}
   .answer-card ul{ margin:0; padding-left:20px; font-size:14px; color:var(--ink); }
   .answer-card li{ margin-bottom:6px; }
   .answer-card li:last-child{ margin-bottom:0; }
@@ -313,7 +317,7 @@
   .refs-block ol{ margin:0; padding-left:19px; font-size:12.5px; color:var(--ink-soft); line-height:1.6; }
   .refs-block li{ margin-bottom:7px; }
   .refs-block li:last-child{ margin-bottom:0; }
-  .refs-block a{ color:var(--ink-soft); text-decoration:underline; text-underline-offset:2px; word-break:break-all; }
+  .refs-block a{ display:inline-block; padding:2px 0; color:var(--ink-soft); text-decoration:underline; text-underline-offset:2px; word-break:break-all; }
   .refs-block a:hover{ color:var(--primary); }
 
   .assess-block{ margin-top:26px; }
@@ -327,9 +331,9 @@
   .assess-btn.good{ border-color:var(--good); }
   .assess-btn.partial{ border-color:var(--warn); }
   .assess-btn.poor{ border-color:var(--bad); }
-  .assess-btn.good.active{ background:var(--good); color:#fff; }
-  .assess-btn.partial.active{ background:var(--warn); color:#fff; }
-  .assess-btn.poor.active{ background:var(--bad); color:#fff; }
+  .assess-btn.good.active{ background:var(--good); color:var(--on-good); box-shadow:inset 0 0 0 2px var(--surface); }
+  .assess-btn.partial.active{ background:var(--warn); color:var(--on-warn); box-shadow:inset 0 0 0 2px var(--surface); }
+  .assess-btn.poor.active{ background:var(--bad); color:var(--on-bad); box-shadow:inset 0 0 0 2px var(--surface); }
   .save-warning{
     margin-top:12px; padding:10px 14px; border-radius:10px;
     background:var(--bad-tint); color:var(--bad); font-size:12.5px; font-weight:600; line-height:1.5;
@@ -341,7 +345,7 @@
     appearance:none; border:none; cursor:pointer; border-radius:12px; padding:14px;
     font-family:inherit; font-size:14.5px; font-weight:700; text-align:center;
   }
-  .nav-btn.primary{ background:var(--primary); color:#fff; }
+  .nav-btn.primary{ background:var(--primary); color:var(--on-primary); }
   .nav-btn.ghost{ background:var(--surface-2); color:var(--ink-soft); border:1px solid var(--line); }
 
   /* ---------- KEITAI (PATTERN) VIEW ---------- */
@@ -364,7 +368,7 @@
   .flow-step:last-child{ padding-bottom:0; }
   .flow-step .rail{ display:flex; flex-direction:column; align-items:center; flex:none; }
   .flow-step .node{
-    width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff;
+    width:32px; height:32px; border-radius:50%; background:var(--primary); color:var(--on-primary);
     display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px;
     font-family:"Zen Kaku Gothic New",sans-serif; flex:none; z-index:1;
   }
@@ -381,6 +385,13 @@
   a{color:var(--primary);}
   button:focus-visible, textarea:focus-visible, .case-card:focus-visible{
     outline:2px solid var(--primary); outline-offset:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:.01ms !important; animation-iteration-count:1 !important;
+      transition-duration:.01ms !important; scroll-behavior:auto !important;
+    }
   }
 
   @media (hover:hover){
@@ -426,9 +437,10 @@
           "背部への放散痛や血圧の左右差があれば<mark>大動脈解離</mark>も鑑別に挙げる"
         ],
         tests:[
-          "直ちに訪室し、<mark>ベッドサイドで12誘導心電図</mark>を確認(新規のST上昇があれば直ちにカテ室起動を要請する。院内発症のため、ER発症を前提とした「door-to-balloon」の時間指標よりも即時性そのものを優先する)",
+          "<mark>直ちに訪室する。向かう間に看護師へ、モニター(心電図・SpO2・自動血圧計)装着・静脈路確保・救急カートをベッドサイドへ・患者から離れないことを依頼し、「血圧が保てない、意識が悪化したら直ちに再コール」と伝える</mark>",
+          "訪室し、<mark>ベッドサイドで12誘導心電図</mark>を確認(新規のST上昇があれば直ちにカテ室起動を要請する。院内発症のため、ER発症を前提とした「door-to-balloon」の時間指標よりも即時性そのものを優先する)",
           "<mark>SpO2 90%未満の場合のみ酸素投与</mark>(正常酸素飽和度へのルーチン酸素投与は転帰を改善しないため避ける)",
-          "収縮期血圧90mmHg以上かつ下壁梗塞・右室梗塞を疑う所見がなければ<mark>ニトログリセリン舌下錠0.3mgを1錠投与し疼痛の変化を評価</mark>(5分あけて最大3回まで)",
+          "収縮期血圧90mmHg以上、下壁梗塞・右室梗塞を疑う所見がなく、<mark>24〜48時間以内のPDE5阻害薬(シルデナフィル・タダラフィル等)の内服がない</mark>ことを確認したうえで<mark>ニトログリセリン舌下錠0.3mgを1錠</mark>(5分あけて最大3回まで)。血圧の左右差や背部への移動痛があれば先に大動脈解離を除外する。<mark>ニトロで軽快してもACSは否定できず、無効でもACSは否定できない</mark>ため、反応性を診断の根拠にしない",
           "静脈路確保・モニター装着のうえ<mark>循環器当直(不在の施設では当直上級医。院内ルールを確認)</mark>へ速やかに報告しトロポニン再検を指示。<mark>疼痛が持続する場合のモルヒネ投与は経口P2Y12阻害薬の吸収遅延・効果減弱を来しうる点を念頭に慎重に判断する</mark>。心電図・トロポニンの推移は指示して終わりにせず、結果が出た時点で必ず自分で確認する",
           "<mark>初回心電図が正常でも、症状が持続・再燃する場合は再検する</mark>。単回の正常心電図だけでACSを否定しない"
         ]
@@ -436,7 +448,7 @@
       pearl:[
         "既往に心疾患がある患者の胸痛は、症状の強さでなく<mark>心電図とバイタル</mark>で緊急度を判断する",
         "ステント留置後早期の胸痛は必ずステント血栓症を鑑別に入れる。特に<mark>DAPT中断・自己判断での休薬歴</mark>は重要な手がかりになる",
-        "<mark>ルーチンの酸素投与はもはや標準治療ではない</mark>(DETO2X-AMI試験)。正常酸素飽和度への投与は転帰を改善せず、SpO2 90%未満での投与にとどめる",
+        "<mark>ACSではルーチンの酸素投与はもはや標準治療ではない</mark>(DETO2X-AMI試験)。正常酸素飽和度への投与は転帰を改善せず、SpO2 90%未満での投与にとどめる——ただしこれはACSに固有の知見で、<mark>PE・術後低酸素・敗血症など他の病態では目標SpO2 94%以上が一般的</mark>である(症例02・06を参照)",
         "大動脈解離は「引き裂かれるような」痛みや背部への移動、血圧左右差(20mmHg超)がヒントになる"
       ],
       refs:[
@@ -467,16 +479,17 @@
           "酸素化が一時的に改善しても、<mark>急速にショックへ進展</mark>しうることを念頭に置く"
         ],
         tests:[
-          "直ちに訪室、酸素投与(目標SpO2 94%以上、CO2ナルコーシスのリスクがなければ)とモニター装着",
-          "<mark>sPESI(簡易PESI)で早期死亡リスクを層別化</mark>したうえで、Dダイマー、心エコー(右室負荷評価)、造影CT(肺動脈相)を検討",
-          "<mark>血行動態が安定していれば未分画ヘパリンまたはDOACによる抗凝固療法を開始</mark>(腎機能・出血リスクを確認し上級医と相談)",
+          "<mark>直ちに訪室する。向かう間に看護師へモニター装着・静脈路確保・救急カート準備・患者から離れないことを依頼し、「SpO2がさらに下がる、血圧が下がったら直ちに再コール」と伝える</mark>。訪室後、酸素投与(目標SpO2 94%以上、CO2ナルコーシスのリスクがなければ)とモニター装着",
+          "<mark>まず心電図(右心負荷所見の確認、ACS・AFの除外)、胸部X線(気胸・肺水腫・無気肺の鑑別)、血液ガスをベッドサイドで取る</mark>",
+          "<mark>術後早期のDダイマーはほぼ全例で上昇しており除外には使えない</mark>。臨床的にPEの可能性が高い本例では、Dダイマーを待たず<mark>造影CT(肺動脈相)を優先</mark>する(腎機能・造影剤アレルギーを確認)。ベッドサイド心エコー(右室負荷評価)は搬送前の判断材料になる。<mark>sPESI(簡易PESI)はPEを疑った/診断した後のモニタリングレベル・治療強度の決定に用いる</mark>(検査に進むかどうかの判断には使わない)",
+          "<mark>ガイドライン上はLMWH/フォンダパリヌクスが優先されるが、本例は開腹術後2日目で出血リスクが高く、中和可能で半減期の短い未分画ヘパリンを選択するのが現実的</mark>(国内ではフォンダパリヌクスが急性PE治療の適応を持つ。DOACは術直後の導入には向かない)。<mark>出血リスクの評価には術中所見が必要なため、当直上級医に加えて執刀医(外科主治医)にも夜間であっても連絡し、抗凝固開始の可否を確認する</mark>",
           "<mark>ショックを伴う高リスクPEでは血栓溶解療法(rt-PA)やカテーテル治療・外科的血栓摘除を考慮</mark>し、直ちに上級医(循環器・呼吸器科が不在の施設では当直上級医。院内ルールを確認)へ報告",
           "抗凝固療法開始後は<mark>15〜30分後を目安にバイタル・SpO2を再評価</mark>し、血圧低下や酸素化悪化があれば高リスクPEへの移行を疑い直ちに再度報告する"
         ]
       },
       pearl:[
         "術後急性発症の呼吸苦+頻脈+低酸素は、まずPEを除外する姿勢が安全。Wells scoreなど臨床予測ルールを併用する",
-        "<mark>sPESI/PESIによるリスク層別化は治療強度(モニタリングレベル・血栓溶解の適応)に直結する</mark>ため、疑った時点で計算する習慣をつける",
+        "<mark>sPESI/PESIによるリスク層別化は治療強度(モニタリングレベル・血栓溶解の適応)に直結する</mark>ため、PEを疑った/診断した後に計算する習慣をつける(画像検査に進むかどうかの判断には使わない)",
         "酸素化が改善しても原因検索は省略しない。PEは「良くなったから様子見」で見逃されやすい",
         "循環動態が不安定な場合は血栓溶解療法も選択肢になるため、疑った時点で早めに上級医へ共有する"
       ],
@@ -490,14 +503,14 @@
       hint:"80歳男性・インスリン治療中・呼びかけへの反応が鈍い",
       call:"先生、704号室の患者さんですが、呼びかけへの反応が鈍くて、いつもよりぼーっとしています。診に来ていただけますか。",
       background:"80歳男性。2型糖尿病でインスリン強化療法中、慢性腎臓病(CKD)あり。就寝前にインスリンを投与済み。",
-      vitals:"BP 138/78　HR 88　RR 16　SpO2 96%　体温36.8℃　意識レベル JCS I-2〜II-10相当",
+      vitals:"BP 138/78　HR 88　RR 16　SpO2 96%　体温36.8℃　意識レベル:看護師は「呼びかけると目は開けるが受け答えがはっきりしない」と表現",
       verdict:"go", verdictLabel:"直ちに訪室",
       answer:{
         check:[
           "<mark>簡易血糖測定</mark>を最優先で指示する(意識障害では低血糖をまず除外)",
           "直近のインスリン・血糖降下薬の投与時刻と量、食事摂取状況",
           "経口摂取が可能な意識レベルか(誤嚥のリスクがあれば無理に経口補正せず静脈路確保を優先する)",
-          "呼びかけへの反応の程度(JCS/GCS)、麻痺・瞳孔左右差の有無"
+          "「呼びかけると目は開けるが受け答えがはっきりしない」という看護師の表現を、<mark>実際に自分で評価したJCS/GCSに置き換える必要がある</mark>ことを意識し、麻痺・瞳孔左右差の有無も確認する"
         ],
         danger:[
           "<mark>低血糖の見逃し</mark>。治療可能かつ緊急性が高いにもかかわらず「様子観察」で済ませてしまうこと",
@@ -506,9 +519,10 @@
           "<mark>JCS/GCSは伝聞ではなく自分の目で評価</mark>する。電話越しの「ぼーっとしている」は解釈に幅がある"
         ],
         tests:[
-          "直ちに訪室し意識レベル・瞳孔・麻痺の有無を評価",
-          "<mark>血糖50mg/dL未満など低血糖が強く疑われる意識障害では、静脈路を確保し50%ブドウ糖液40mL(ブドウ糖20g相当)を1〜3分かけて静脈内投与</mark>。<mark>脱水などで静脈路確保に時間がかかる場合はグルカゴン1mgの筋注/皮下注も代替手段になる</mark>(施設の採用状況・在庫を確認)",
-          "<mark>投与後15分程度で血糖を再検し、改善が乏しければ同量を追加投与。意識回復後も持効型インスリンやSU薬の作用持続時間を踏まえ、数時間は低血糖の再発に注意し、必要に応じ10%ブドウ糖液の持続点滴を検討</mark>",
+          "<mark>血糖測定の結果が低値であれば、医師の到着を待たず、意識があり誤嚥リスクがなければブドウ糖10g相当(ブドウ糖ゼリー等)の経口投与を開始してよいと電話で伝える。反応が鈍く経口が危険なら投与せず静脈路を確保して待つ</mark>よう依頼し、直ちに訪室する",
+          "訪室し意識レベル・瞳孔・麻痺の有無を評価",
+          "<mark>血糖70mg/dL未満(意識障害を伴えば重症低血糖)であれば、静脈路を確保し50%ブドウ糖液20mL(10g)を緩徐に静注</mark>。<mark>脱水などで静脈路確保に時間がかかる場合はグルカゴン1mgの筋注/皮下注も代替手段になる</mark>(施設の採用状況・在庫を確認)。<mark>低栄養・アルコール多飲歴があればチアミンの併用投与を考慮する</mark>",
+          "<mark>15分後に再検し、改善が乏しければ同量を追加投与。意識回復後も持効型インスリンやSU薬の作用持続時間を踏まえ、数時間は低血糖の再発に注意し、必要に応じ10%ブドウ糖液の持続点滴を検討</mark>。<mark>ブドウ糖投与後も意識レベルが改善しない場合は、遷延性低血糖(CKD・SU薬)と低血糖以外の原因の併存を疑い、この時点で必ず上級医へ報告する</mark>",
           "血糖が正常で原因不明なら頭部CTを検討。麻痺や瞳孔異常があれば脳卒中対応を上級医と即相談。<mark>低血糖の原因(インスリン量・食事摂取量)は翌朝までのメモに残し、再発予防のため主治医チームと共有する</mark>"
         ]
       },
@@ -519,7 +533,8 @@
         "高齢者の意識障害はせん妄との鑑別が難しいが、急性発症・変動する意識レベルがあってもまず器質的疾患(特に低血糖)の除外を優先する"
       ],
       refs:[
-        {author:"Cryer PE, et al.(Endocrine Society)", title:"Evaluation and Management of Adult Hypoglycemic Disorders: An Endocrine Society Clinical Practice Guideline", source:"Journal of Clinical Endocrinology & Metabolism", year:"2009", url:"https://doi.org/10.1210/jc.2008-1410"}
+        {author:"Cryer PE, et al.(Endocrine Society)", title:"Evaluation and Management of Adult Hypoglycemic Disorders: An Endocrine Society Clinical Practice Guideline", source:"Journal of Clinical Endocrinology & Metabolism", year:"2009", url:"https://doi.org/10.1210/jc.2008-1410"},
+        {author:"厚生労働省", title:"重篤副作用疾患別対応マニュアル 低血糖", source:"厚生労働省", year:"2006", url:"https://www.mhlw.go.jp/topics/2006/11/dl/tp1122-1d45.pdf"}
       ]
     },
     {
@@ -527,7 +542,7 @@
       title:"消化管出血の再出血によるショック",
       hint:"75歳男性・下血後内視鏡止血後・血圧低下と頻脈",
       call:"先生、410号室の患者さんですが、血圧が82/50まで下がって脈も120まで上がっています。顔色もあまり良くないようです。",
-      background:"75歳男性。数日前に下血で入院し、内視鏡的止血術後で経過観察中。",
+      background:"75歳男性。数日前に吐血・黒色便で入院し、上部消化管内視鏡で胃潰瘍からの出血に対し内視鏡的止血術を施行、術後で経過観察中。",
       vitals:"BP 82/50　HR 122　RR 22　SpO2 95%　冷汗・顔面蒼白あり",
       verdict:"go", verdictLabel:"直ちに訪室",
       answer:{
@@ -544,16 +559,18 @@
           "<mark>過剰な輸液・輸血はかえって再出血や死亡率上昇と関連しうる</mark>ため、目標を定めずに投与量を増やし続けない"
         ],
         tests:[
-          "直ちに訪室、<mark>末梢静脈路(できれば18G以上を2本)を確保し細胞外液500〜1000mLを急速輸液</mark>して<mark>15〜30分後を目安に</mark>反応(血圧・尿量)を評価",
-          "交差適合試験用の採血・輸血準備。<mark>Hb 7g/dL程度を目安とした制限的輸血戦略</mark>を基本とし、活動性出血や心疾患合併など個々の状況で上級医と調整",
-          "<mark>消化性潰瘍出血が疑われればプロトンポンプ阻害薬の静注を内視鏡前から開始</mark>(例:オメプラゾール20mgを1日2回静注など。具体的な薬剤・用量は施設のプロトコルに従う)",
+          "<mark>直ちに訪室する。向かう間に看護師へモニター装着・静脈路確保・救急カート準備を依頼し、吐血に備え絶食・酸素投与・側臥位/上体挙上と吸引の準備を依頼する。「血圧がさらに下がる、意識が悪化したら直ちに再コール」と伝える</mark>",
+          "訪室、<mark>末梢静脈路(できれば18G以上を2本)を確保し細胞外液500〜1000mLを急速輸液</mark>して<mark>15〜30分後を目安に</mark>反応(血圧・尿量)を評価",
+          "交差適合試験用の採血・輸血準備。<mark>Hb 7g/dL程度を目安とした制限的輸血戦略</mark>を基本とし、活動性出血や心疾患合併など個々の状況で上級医と調整。<mark>輸液に反応しない、または大量の活動性出血がある場合は、交差適合を待たず未交差適合血の緊急使用を輸血部・上級医と即座に検討する</mark>",
+          "<mark>抗血栓薬内服中であれば直ちに休薬の可否と拮抗(ワルファリン→ビタミンK+4F-PCC、DOAC→中和薬の有無)を上級医と検討する</mark>(症例05を参照)。<mark>静脈瘤性が疑われる場合は血管作動薬と予防的抗菌薬の投与を含め、消化器内科当直と早期に方針を決める</mark>",
+          "<mark>内視鏡的止血後の再出血が疑われる本例では、高用量プロトンポンプ阻害薬静注の継続・再開が推奨される</mark>(例:オメプラゾール20mgを1日2回静注など。なお内視鏡前投与についてはACGガイドラインも賛否いずれの推奨も出しておらず、施設のプロトコルに従う)",
           "再出血が疑われれば緊急内視鏡・IVR・外科的介入を含め当該科・上級医へ即時報告。<mark>輸液・輸血に反応しない場合は大量輸血プロトコルの起動や昇圧薬使用も相談</mark>"
         ]
       },
       pearl:[
         "ショックの早期サインは血圧低下より先に<mark>頻脈・冷汗・尿量低下</mark>として現れることが多い。「血圧が下がってから動く」のでは遅い",
         "Shock index(心拍数÷収縮期血圧)が1を超える場合は重症出血を疑う目安になる",
-        "<mark>Villanueva試験などから、上部消化管出血では制限的輸血戦略(Hb 7g/dL目標)が積極的輸血より予後良好と報告されている</mark>(虚血性心疾患合併など例外はある)",
+        "<mark>Villanueva試験などから、上部消化管出血では制限的輸血戦略(Hb 7g/dL目標)が積極的輸血より予後良好と報告されている</mark>(このエビデンスは虚血性心疾患合併例・大量出血例は除外されており、そうした患者では個別に判断する)",
         "消化管出血の再出血は初回止血後24〜72時間以内に多く、この時期のバイタル変化には閾値を下げて対応する"
       ],
       refs:[
@@ -567,26 +584,26 @@
       hint:"85歳女性・ワルファリン内服中・転倒し頭部打撲",
       call:"先生、308号室の患者さんが先ほどトイレに行く途中で転倒して、頭を打ったようです。本人は『大丈夫』と言っているのですが…",
       background:"85歳女性。心房細動でワルファリンを内服中(抗凝固療法中)。認知機能は保たれている。",
-      vitals:"BP 142/86　HR 76　意識清明　頭部に軽度の腫脹あり　嘔吐なし",
+      vitals:"BP 142/86　HR 76　RR 16　SpO2 97%(room air)　体温36.6℃　意識清明　頭部に軽度の腫脹あり　嘔吐なし",
       verdict:"go", verdictLabel:"直ちに訪室",
       answer:{
         check:[
           "受傷機転(頭部を打ったか、<mark>一過性の意識消失</mark>の有無)、抗凝固薬・抗血小板薬の内服状況",
           "意識レベル・瞳孔所見・嘔気嘔吐・麻痺やしびれの有無",
-          "頭部以外の受傷部位(<mark>大腿骨頸部骨折</mark>を疑う股関節痛・下肢短縮・外旋の有無)",
+          "頭部以外の受傷部位(<mark>大腿骨頸部骨折</mark>を疑う股関節痛・下肢短縮・外旋の有無、<mark>頸部痛・後頸部正中の圧痛・四肢のしびれや脱力の有無(頸椎損傷の評価)</mark>)",
           "<mark>直近のINR値</mark>(治療域内か、治療域を超えていないか)"
         ],
         danger:[
           "抗凝固薬内服中の頭部打撲は、<mark>その場で無症状でも遅発性の頭蓋内出血</mark>(硬膜下血腫など)を起こしうる",
-          "大腿骨頸部骨折は高齢者の転倒で見逃されやすく、活動性低下や誤嚥性肺炎などの合併症リスクを高める",
+          "大腿骨頸部骨折・頸椎損傷(歯突起骨折・中心性脊髄損傷など)は高齢者の転倒で見逃されやすく、頸椎損傷を疑う所見があるのに不用意に起こして歩かせると損傷を完成させうる",
           "転倒の背景にある<mark>一過性意識消失(失神・不整脈・起立性低血圧)</mark>を見逃さない",
-          "<mark>初回頭部CTが陰性でも、抗凝固薬内服中は数時間〜24時間後に出血が顕在化することがある</mark>"
+          "<mark>初回頭部CTが陰性でも、抗凝固薬内服中はまれに遅発性の出血が顕在化することがある</mark>(頻度は低いが致死的でありうる)"
         ],
         tests:[
-          "直ちに訪室し神経学的所見・受傷部位を評価",
-          "抗凝固薬内服中の頭部外傷は<mark>症状の有無にかかわらず頭部CTの適応を積極的に検討</mark>し、あわせてINRを確認",
+          "<mark>電話の時点で、医師到着まで患者をその場で安静に保ち、頸部を動かさないよう看護師に依頼する。むやみに立たせて歩かせない</mark>。直ちに訪室し神経学的所見・受傷部位を評価",
+          "抗凝固薬内服中の頭部外傷は<mark>症状の有無にかかわらず頭部CTの適応を積極的に検討</mark>し、あわせてINRを確認。<mark>頸部痛・神経症状があれば頸椎CTも同時に検討する</mark>",
           "<mark>頭蓋内出血が確認された場合は、ビタミンK静注+4因子プロトロンビン複合体濃縮製剤(4F-PCC、新鮮凍結血漿より是正が速い)によるワルファリン拮抗を上級医と相談し速やかに開始</mark>。<mark>脳神経外科が不在の施設では、この時点で搬送(転送)の要否も含めて上級医と方針を決める</mark>",
-          "<mark>初回CTが陰性でも神経症状の出現に注意し、必要に応じ6〜24時間後の再CTを検討</mark>。転倒の原因(不整脈、起立性低血圧、環境要因)も併せて評価し再発予防策を検討"
+          "<mark>初回CT陰性後の遅発性出血はワルファリン内服例でも1%未満とまれであり、ルーチンの再CTは推奨されていない。ただし新たな頭痛・嘔吐・意識変容・神経症状が出現した場合は直ちに再CTを行う</mark>——看護師にその観察項目とコール基準を明示して申し送る。転倒の原因(不整脈、起立性低血圧、環境要因)も併せて評価し再発予防策を検討"
         ]
       },
       pearl:[
@@ -596,7 +613,7 @@
         "せん妄・薬剤性(睡眠薬・降圧薬)・起立性低血圧は転倒の頻度の高い誘因であり、内服薬の見直しも初期対応に含める"
       ],
       refs:[
-        {author:"Nishijima DK, et al.", title:"Immediate and Delayed Traumatic Intracranial Hemorrhage in Patients With Head Trauma and Preinjury Warfarin or Clopidogrel Use", source:"Annals of Emergency Medicine", year:"2012", url:"https://doi.org/10.1016/j.annemergmed.2012.02.007"},
+        {author:"Nishijima DK, et al.", title:"Immediate and Delayed Traumatic Intracranial Hemorrhage in Patients With Head Trauma and Preinjury Warfarin or Clopidogrel Use", source:"Annals of Emergency Medicine", year:"2012", url:"https://doi.org/10.1016/j.annemergmed.2012.04.007"},
         {author:"Tomaselli GF, et al.(ACC Solution Set Oversight Committee)", title:"2020 ACC Expert Consensus Decision Pathway on Management of Bleeding in Patients on Oral Anticoagulants", source:"Journal of the American College of Cardiology", year:"2020", url:"https://doi.org/10.1016/j.jacc.2020.04.053"}
       ]
     },
@@ -606,13 +623,13 @@
       hint:"79歳男性・術後3日目・夜間の強い不穏で眠剤を希望",
       call:"先生、602号室の患者さんですが、夜になって急に『ここはどこだ』と大声を出したり点滴を抜こうとしたりして、興奮が強いです。眠剤を使ってもいいですか?",
       background:"79歳男性。大腸癌術後3日目。日中は問題なく経過し、術前の認知機能は正常だった。",
-      vitals:"BP 150/90　HR 108　RR 20　SpO2 91%(room air)　体温37.2℃",
-      verdict:"go", verdictLabel:"まず訪室して評価",
+      vitals:"BP 150/90　HR 108　RR 20　体温37.2℃　SpO2:看護師はまだ測定していない",
+      verdict:"go", verdictLabel:"直ちに訪室",
       answer:{
         check:[
           "<mark>バイタルサイン全項目(特にSpO2・血糖)</mark>をまず確認する",
           "急性発症か、日内変動があるか(せん妄の特徴)、疼痛や尿閉・便秘など身体的な誘因の有無",
-          "現在使用中の薬剤(オピオイド、ベンゾジアゼピン、抗コリン薬など)の確認",
+          "現在使用中の薬剤(オピオイド、ベンゾジアゼピン、抗コリン薬など)の確認、<mark>糖尿病・パーキンソン病/レビー小体型認知症の既往(薬剤選択に直結する)</mark>",
           "自己抜去の対象(点滴・カテーテル)と<mark>転倒・転落や自己抜去による実害が切迫しているか</mark>"
         ],
         danger:[
@@ -620,14 +637,16 @@
           "ベンゾジアゼピン系睡眠薬は高齢者のせん妄をむしろ悪化させ、<mark>転倒・呼吸抑制</mark>のリスクも高める",
           "尿閉・便秘・疼痛など「隠れた身体的誘因」に気づかず対症療法だけで終わらせること",
           "<mark>身体拘束は自己抜去防止に有効に見えるが、せん妄自体を悪化させうるため必要最小限にとどめる</mark>",
-          "<mark>ヒドロキシジン(アタラックスP)など抗コリン作用を持つ薬剤は、鎮静・不眠目的で反射的に使われがちだが、せん妄をかえって悪化・遷延させうる</mark>ため第一選択にしない"
+          "<mark>ヒドロキシジン(アタラックスP)など抗コリン作用を持つ薬剤は、鎮静・不眠目的で反射的に使われがちだが、せん妄をかえって悪化・遷延させうる</mark>ため第一選択にしない",
+          "<mark>術後3日目の新規低酸素・頻脈・微熱は、せん妄の随伴所見ではなく肺血栓塞栓症・術後肺炎・無気肺・縫合不全による敗血症のサインでありうる</mark>(症例02を参照)。酸素投与でSpO2が改善しても原因検索を省略しない"
         ],
         tests:[
-          "訪室してバイタル・SpO2・血糖を確認する。<mark>SpO2 94%未満であれば、原因検索と並行して直ちに酸素投与を開始する</mark>(低酸素の是正を後回しにしない)",
+          "訪室してバイタル・SpO2・血糖を確認する——<mark>実際に測定するとSpO2 91%(room air)</mark>。<mark>SpO2 94%未満であれば、原因検索と並行して直ちに酸素投与を開始する</mark>(低酸素の是正を後回しにしない)",
+          "<mark>低酸素の原因として肺血栓塞栓症・術後肺炎・無気肺・腹腔内感染を鑑別に挙げ、胸部X線・血液ガス・血算/CRP・心電図を検討する</mark>(症例02を参照)",
           "疼痛・尿閉など他の身体的原因も除外したうえで、非薬物的介入(見当識の付与、時計・照明・環境調整、可能なら家族への連絡)を優先",
-          "<mark>薬物療法が必要な場合はベンゾジアゼピン系を避け、クエチアピン12.5〜25mgやリスペリドン0.5mg程度の少量の非定型抗精神病薬(いずれも内服)から開始</mark>を上級医と相談(<mark>パーキンソン病・レビー小体型認知症の既往があれば抗精神病薬で症状が悪化しうるため特に慎重に判断する</mark>)",
-          "<mark>ヒドロキシジン(アタラックスP)は使用できないわけではないが、抗コリン作用によりせん妄を助長しうるうえQT延長の報告もあるため、せん妄が疑われる場面では優先しない</mark>。<mark>やむを得ず使用する場合は高齢者では通常量より減量(目安1/2A=12.5mg程度から)し、他のQT延長薬・電解質異常の有無を確認したうえで上級医と相談する</mark>",
-          "<mark>内服が難しくハロペリドールを使用する場合、静脈内投与は不整脈リスクが高いため可能であれば筋注を選択し、心電図モニタリングを検討する</mark>。<mark>薬剤投与後30分〜1時間で鎮静度・呼吸状態を再評価</mark>し、過鎮静や新たな症状があれば直ちに上級医へ連絡する"
+          "<mark>薬物療法が必要な場合はベンゾジアゼピン系を避け、クエチアピン12.5〜25mgやリスペリドン0.5mg程度の少量の非定型抗精神病薬(いずれも内服)から開始</mark>を上級医と相談。<mark>クエチアピン・オランザピンは日本では糖尿病・その既往のある患者に禁忌(高血糖・糖尿病性ケトアシドーシスによる死亡例に基づく)であり、血糖値と糖尿病治療薬の有無を確認してから選択する</mark>。<mark>パーキンソン病・レビー小体型認知症の既往があれば抗精神病薬(特にハロペリドール)は禁忌であり、使用しない</mark>",
+          "<mark>ヒドロキシジン(アタラックスP)は使用できないわけではないが、抗コリン作用によりせん妄を助長しうるうえQT延長の報告もあるため、せん妄が疑われる場面では優先しない</mark>。<mark>やむを得ず使用する場合は高齢者では通常量より減量(目安1/2A=12.5mg程度から。製剤規格が25mg/50mgの2種類あるためアンプル表示を必ず確認)し、他のQT延長薬・電解質異常の有無を確認したうえで上級医と相談する</mark>(EMAは高齢者での1日上限を50mgとしている)",
+          "<mark>内服が難しくハロペリドールを使用する場合(パーキンソン病・レビー小体型認知症は禁忌)、静脈内投与は不整脈リスクが高いため可能であれば筋注を選択し、心電図モニタリングを検討する</mark>。<mark>薬剤投与後30分〜1時間で鎮静度・呼吸状態を再評価</mark>し、過鎮静や新たな症状があれば直ちに上級医へ連絡する"
         ]
       },
       pearl:[
@@ -635,13 +654,14 @@
         "「不穏だから眠剤」という反射的な指示は、低酸素や急性腹症などの見逃しにつながる典型的な落とし穴",
         "ベンゾジアゼピン系薬剤は高齢者のせん妄治療における第一選択ではなく、むしろせん妄を遷延・悪化させうる",
         "<mark>アタラックスPは非定型抗精神病薬より軽い薬として選ばれがちだが、抗コリン作用とQT延長リスクを併せ持ち、せん妄患者には必ずしも「安全な代替」ではない</mark>",
+        "薬物療法に進む前に必ず確認する3点:①<mark>糖尿病の有無(クエチアピン・オランザピンは禁忌)</mark>②<mark>パーキンソン病/レビー小体型認知症の有無(抗精神病薬、特にハロペリドールは禁忌)</mark>③QT延長・電解質異常の有無",
         "<mark>早期離床や昼夜のメリハリ、見当識付与などの非薬物的アプローチ(HELPプログラムなど)はせん妄の発症・重症度を減らすエビデンスがあり、薬物療法より優先される</mark>"
       ],
       refs:[
         {author:"Inouye SK, Westendorp RG, Saczynski JS.", title:"Delirium in elderly people", source:"The Lancet", year:"2014", url:"https://doi.org/10.1016/S0140-6736(13)60688-1"},
         {author:"Marcantonio ER.", title:"Delirium in Hospitalized Older Adults", source:"New England Journal of Medicine", year:"2017", url:"https://doi.org/10.1056/NEJMcp1605501"},
         {author:"American Geriatrics Society 2023 Beers Criteria Update Expert Panel", title:"American Geriatrics Society 2023 updated AGS Beers Criteria for potentially inappropriate medication use in older adults", source:"Journal of the American Geriatrics Society", year:"2023", url:"https://doi.org/10.1111/jgs.18372"},
-        {author:"European Medicines Agency, Pharmacovigilance Risk Assessment Committee (PRAC)", title:"PRAC recommends new measures to minimise the known heart risks of hydroxyzine-containing medicines", source:"EMA safety communication", year:"2015", url:"https://www.ema.europa.eu/en/documents/referral/hydroxyzine-article-31-referral-prac-recommends-new-measures-minimise-known-heart-risks_en.pdf"}
+        {author:"European Medicines Agency, Pharmacovigilance Risk Assessment Committee (PRAC)", title:"PRAC recommends new measures to minimise the known heart risks of hydroxyzine-containing medicines", source:"EMA safety communication", year:"2015", url:"https://www.ema.europa.eu/en/news/prac-recommends-new-measures-minimise-known-heart-risks-hydroxyzine-containing-medicines"}
       ]
     },
     {
@@ -650,12 +670,12 @@
       hint:"83歳女性・心不全既往・絶食補液中に尿量低下",
       call:"先生、510号室の患者さんですが、ここ6時間の尿量が50mlしか出ていません。追加で点滴を増やしてもいいですか?",
       background:"83歳女性。慢性心不全(左室駆出率低下)の既往があり、腸閉塞のため絶食・末梢輸液で管理中。",
-      vitals:"BP 108/64　HR 92　SpO2 94%(room air)　入院時から体重+2kg、下腿浮腫あり、頸静脈やや怒張",
+      vitals:"BP 108/64　HR 92　RR 18　SpO2 94%(room air)　体重44kg(入院時42kg)",
       verdict:"phone", verdictLabel:"電話評価のうえ判断",
       answer:{
         check:[
-          "<mark>尿道カテーテルの閉塞・尿閉の有無</mark>を機械的にまず除外する",
-          "直近のin-outバランス、体重変化、下腿浮腫・頸静脈怒張など体液過剰の所見",
+          "<mark>尿道カテーテルの閉塞・尿閉の有無</mark>(機械的な原因)を反射的に、まず除外する",
+          "直近のin-outバランス、体重変化",
           "血圧・脈拍などの循環動態、直近の腎機能(Cr)の推移",
           "<mark>NSAIDsや造影剤など腎毒性のある薬剤・検査が最近使われていないか</mark>"
         ],
@@ -664,13 +684,13 @@
           "尿道カテーテルの閉塞や神経因性膀胱による<mark>尿閉を腎前性の乏尿と誤認</mark>すること",
           "腎機能の推移を確認せず経過観察のみで急性腎障害(AKI)の進行を見逃すこと",
           "<mark>体液量評価が不十分なまま利尿薬を投与すると、実際は脱水だった場合に腎前性AKIを悪化させうる</mark>ため、評価を飛ばして薬物介入しない",
-          "<mark>この症例は電話評価から始めてよいが、呼吸苦・起座呼吸・SpO2低下を伴えば肺水腫増悪の可能性があり、電話対応で終わらせず直ちに訪室に切り替える</mark>"
+          "<mark>この症例は電話でのカテーテル確認から始めてよいが、呼吸苦・起座呼吸・SpO2低下を伴えば肺水腫増悪の可能性があり、電話対応で終わらせず直ちに訪室に切り替える</mark>"
         ],
         tests:[
-          "訪室し、まずカテーテル閉塞・尿閉を触診・エコーで除外する。<mark>閉塞が疑われればカテーテル交換や膀胱洗浄を行う</mark>",
-          "体液量評価(浮腫・頸静脈怒張・体重・in-outバランス)を行い、<mark>体液過剰が明らかであれば輸液を増やさずフロセミド10〜20mg静注などの利尿を検討</mark>(腎機能・電解質を踏まえ上級医と相談)。<mark>投与後1〜2時間を目安に尿量・血圧を再評価</mark>し、反応不良なら方針を再検討する",
+          "<mark>まず電話でカテーテルの屈曲・閉塞・排液の有無を看護師に確認してもらう。ここで解決すれば訪室は必須ではない</mark>(閉塞が疑われればカテーテル交換や膀胱洗浄を行う)",
+          "<mark>解決しない、または体液量評価が必要と判断した時点で訪室する。実際に診察すると下腿浮腫・頸静脈やや怒張を認め</mark>、体液量評価(浮腫・頸静脈怒張・体重・in-outバランス)を行う。<mark>体液過剰が明らかであれば輸液を増やさずフロセミド10〜20mg静注(既にループ利尿薬を内服中であれば普段の経口1日量と同等〜2倍程度の静注量を目安に)</mark>(腎機能・電解質を踏まえ上級医と相談)。<mark>投与後1〜2時間を目安に尿量・血圧を再評価</mark>し、反応不良なら方針を再検討する",
           "<mark>腎機能(Cr、BUN)・電解質に加え尿中Na・尿素窒素(FeNa・FeUrea)を確認し、腎前性か腎性かの鑑別材料とする</mark>",
-          "体液量評価に自信が持てない場合は無理に単独判断せず、上級医と輸液・利尿の方針をすり合わせる"
+          "<mark>電話でのカテーテル確認から先に進む場合や体液量評価に自信が持てない場合は無理に単独判断せず、上級医と輸液・利尿の方針をすり合わせる。「◯◯の症状が出たら直ちに再コール」と看護師に伝えてから電話を終える</mark>"
         ]
       },
       pearl:[
@@ -680,7 +700,7 @@
         "<mark>FeNa<1%は腎前性を示唆するが、利尿薬使用中はナトリウム排泄が変動するためFeUreaの方が信頼性が高いとされる</mark>"
       ],
       refs:[
-        {author:"Kidney Disease: Improving Global Outcomes (KDIGO) Acute Kidney Injury Work Group", title:"KDIGO Clinical Practice Guideline for Acute Kidney Injury", source:"Kidney International Supplements", year:"2012", url:"https://doi.org/10.1038/kisup.2012.1"}
+        {author:"Kidney Disease: Improving Global Outcomes (KDIGO) Acute Kidney Injury Work Group", title:"KDIGO Clinical Practice Guideline for Acute Kidney Injury", source:"Kidney International Supplements", year:"2012", url:"https://kdigo.org/guidelines/acute-kidney-injury/"}
       ]
     },
     {
@@ -689,7 +709,7 @@
       hint:"74歳男性・入院2日目・不眠時指示なしで眠剤を希望",
       call:"先生、205号室の患者さんが『眠れないので眠剤をください』とおっしゃっています。指示簿に不眠時指示が入っていないのですが、出してもいいですか?",
       background:"74歳男性。誤嚥性肺炎で入院2日目。既往に前立腺肥大、軽度の認知機能低下あり。",
-      vitals:"BP 128/78　HR 76　SpO2 95%(room air)　体温36.5℃　呼吸状態は落ち着いている",
+      vitals:"BP 128/78　HR 76　RR 16　SpO2 95%(room air)　体温36.5℃",
       verdict:"phone", verdictLabel:"電話評価のうえ判断",
       answer:{
         check:[
@@ -699,15 +719,17 @@
           "<mark>市販の抗ヒスタミン系睡眠薬など、指示簿に載らない抗コリン作用のある薬剤を自己判断で使っていないか</mark>"
         ],
         danger:[
-          "高齢者へのベンゾジアゼピン系睡眠薬は<mark>転倒・骨折・せん妄・呼吸抑制</mark>のリスクを高める(前立腺肥大では尿閉を誘発することも)",
-          "「眠れない」の背景に低酸素・疼痛・せん妄の前駆症状が隠れていることがあり、<mark>原因検索なしに睡眠薬だけで対応すると悪化に気づけない</mark>",
+          "高齢者へのベンゾジアゼピン系睡眠薬は<mark>転倒・骨折・せん妄・呼吸抑制</mark>のリスクを高める",
+          "「眠れない」の背景に低酸素・疼痛・せん妄の前駆症状が隠れていることがあり、<mark>原因検索なしに、まして訪室せず電話だけで睡眠薬を新規処方すると悪化に気づけない</mark>——見当識・注意力(日付・場所の質問、100から7を引く等)はそもそも電話では判定できない",
           "誤嚥性肺炎など呼吸器疾患のある患者への睡眠薬は、呼吸抑制のリスクを増悪させうる",
           "<mark>ジフェンヒドラミンなど第一世代抗ヒスタミン薬は強い抗コリン作用があり、前立腺肥大症の尿閉やせん妄を助長しうる</mark>ため安易に選ばない",
-          "<mark>この症例は電話評価から始めてよいが、見当識障害や急激な性格変化などせん妄様の症状を伴えば単純な不眠ではなくせん妄を疑い、電話指示で終わらせず直ちに訪室する</mark>(症例06を参照)"
+          "<mark>この症例は電話評価から始めてよいが、見当識障害や急激な性格変化などせん妄様の症状を伴えば単純な不眠ではなくせん妄を疑い、電話指示で終わらせず直ちに訪室する</mark>(症例06を参照)。「不眠時指示がない」という事実自体が、主治医が意図的に処方を保留した可能性を示す情報でもある"
         ],
         tests:[
           "まず不眠の原因(疼痛・頻尿・環境)を確認し、可能なら非薬物的対応(消灯・室温調整・排尿誘導)を優先",
-          "<mark>薬剤が必要な場合はメラトニン受容体作動薬(ラメルテロン)やオレキシン受容体拮抗薬(スボレキサント)など、転倒・せん妄リスクが相対的に低いとされる薬剤を少量から検討</mark>し、ベンゾジアゼピン系および<mark>Z薬(ゾルピデムなど)も避ける</mark>",
+          "<mark>新規に睡眠薬を処方する前に、原則として訪室して見当識・注意力と呼吸状態を自分で評価する</mark>。判断に迷う場合、または呼吸器疾患・認知機能低下・オピオイド併用のいずれかがあれば、<mark>処方前に当直上級医へ相談する</mark>",
+          "<mark>薬剤が必要な場合はメラトニン受容体作動薬(ラメルテオン)やオレキシン受容体拮抗薬(スボレキサント)など、転倒・せん妄リスクが相対的に低いとされる薬剤を少量から検討</mark>し、ベンゾジアゼピン系および<mark>Z薬(ゾルピデムなど)も避ける</mark>。<mark>ラメルテオンはフルボキサミン併用禁忌、スボレキサントは強いCYP3A阻害薬(クラリスロマイシン等)併用禁忌のため、抗菌薬レジメンを含む併用薬を確認してから選択する</mark>",
+          "<mark>投与後1〜2時間を目安に、傾眠の程度・呼吸数・SpO2を看護師に再確認してもらう。夜間のトイレ歩行は付き添い/ポータブル使用を指示し、転倒予防を投薬とセットで指示する</mark>",
           "呼吸状態に不安がある場合や不眠を繰り返す場合は、翌日の主治医評価につなげる"
         ]
       },
@@ -733,8 +755,9 @@
     {t:"電話でまず聞く", d:"主訴・発症様式・バイタル全項目を数字で聞く。「元気がない」「様子がおかしい」といった伝聞表現は具体的な数値・所見に言い換えてもらう。"},
     {t:"緊急度を判断する", d:"「今すぐ訪室すべきか」をこの電話の時点で決める。判断に迷うこと自体が、訪室すべきサインだと考える。"},
     {t:"自分の目で確認する", d:"意識レベル・呼吸音・患部などを訪室して直接評価する。電話の情報だけで安心して対応を終えない。"},
-    {t:"見落とし厳禁な鑑別を必ず除外する", d:"「経過観察」で済ませられない病態がないか、症例ごとのRed flagを一度は鑑別に挙げる。"},
-    {t:"指示を出し、早めに相談する", d:"初期対応を指示し、判断に迷う・重症感があれば方針を決め切る前に上級医へ共有する。"}
+    {t:"見落としてはならない鑑別を必ず一度は挙げる", d:"「経過観察」で済ませられない病態がないか、症例ごとのRed flagを一度は鑑別に挙げる。"},
+    {t:"指示を出し、早めに相談する", d:"初期対応を指示し、判断に迷う・重症感があれば方針を決め切る前に上級医へ共有する。薬剤の口頭指示は看護師に復唱してもらい、対応内容と判断根拠は当直中にカルテへ記載する。"},
+    {t:"再コール基準を伝えて切る", d:"訪室しないと決めた電話ほど、「◯◯になったらすぐ呼んでください」を具体的な数値・症状で伝えてから切る。危険の閾値を看護師と共有することが、訪室しない判断の前提条件になる。"}
   ];
 
   var STORE_KEY = "oncall_progress_v1";
@@ -747,16 +770,48 @@
     }catch(e){ return {}; }
   }
   function saveProgress(p){
-    try{ localStorage.setItem(STORE_KEY, JSON.stringify(p)); return true; }catch(e){ return false; }
+    try{
+      // Read-merge-write: another tab may have saved newer progress since this tab's
+      // in-memory state was last loaded. Overwriting wholesale would silently drop it.
+      var stored = loadProgress();
+      Object.keys(p).forEach(function(k){ stored[k] = p[k]; });
+      localStorage.setItem(STORE_KEY, JSON.stringify(stored));
+      state.progress = stored;
+      return true;
+    }catch(e){ return false; }
   }
   function loadDrafts(){
     try{
-      var d = JSON.parse(localStorage.getItem(DRAFT_KEY));
-      return (d && typeof d === "object" && !Array.isArray(d)) ? d : {};
+      var raw = JSON.parse(localStorage.getItem(DRAFT_KEY));
+      if(!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+      var keys = PROMPTS.map(function(p){ return p.key; });
+      var known = {}; CASES.forEach(function(c){ known[c.id] = true; });
+      var out = {};
+      Object.keys(raw).forEach(function(caseId){
+        if(!known[caseId]) return; // drop entries for unknown/removed case ids
+        var entry = raw[caseId];
+        if(!entry || typeof entry !== "object" || Array.isArray(entry)) return;
+        var clean = {};
+        keys.forEach(function(k){
+          if(typeof entry[k] === "string") clean[k] = entry[k]; // only accept string values
+        });
+        out[caseId] = clean;
+      });
+      return out;
     }catch(e){ return {}; }
   }
-  function saveDrafts(d){
-    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); return true; }catch(e){ return false; }
+  function saveDrafts(d, dirtyIds){
+    try{
+      // Same read-merge-write concern as saveProgress, but scoped to only the case(s) this
+      // tab actually edited (dirtyIds) — an untouched case in `d` is just this tab's stale
+      // load-time snapshot and must not clobber a newer draft another tab wrote for it.
+      var stored = loadDrafts();
+      (dirtyIds || Object.keys(d)).forEach(function(k){
+        if(d[k]) stored[k] = d[k];
+      });
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(stored));
+      return true;
+    }catch(e){ return false; }
   }
 
   // Soft data-integrity check: warns in the console (never blocks rendering) if a future
@@ -764,15 +819,23 @@
   // navigation both rely on.
   (function validateCasesData(){
     var seenIds = {}, seenNums = {}, ok = true;
+    var VALID_CATS = {urgent:1, judgment:1};
+    var VALID_VERDICTS = {go:1, phone:1};
     CASES.forEach(function(c, i){
       if(seenIds[c.id]) ok = false;
       seenIds[c.id] = true;
       if(seenNums[c.num]) ok = false;
       seenNums[c.num] = true;
       if(c.num !== i+1) ok = false;
+      if(!VALID_CATS[c.cat]) ok = false;
+      if(!VALID_VERDICTS[c.verdict]) ok = false;
+      if(!c.verdictLabel || !c.title || !c.hint || !c.call || !c.vitals) ok = false;
+      PROMPTS.forEach(function(p){
+        if(!c.answer || !Array.isArray(c.answer[p.key]) || !c.answer[p.key].length) ok = false;
+      });
     });
     if(!ok && typeof console !== "undefined" && console.warn){
-      console.warn("[oncall] CASES data integrity check failed: ids/nums are not unique and sequential. Case navigation and status tracking may misbehave.");
+      console.warn("[oncall] CASES data integrity check failed: ids/nums/cat/verdict/answer content are not all valid. Case navigation and status tracking may misbehave.");
     }
   })();
 
@@ -788,7 +851,8 @@
   var app = document.getElementById("app");
 
   function escapeHtml(s){
-    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+    return String(s == null ? "" : s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
   var VALID_STATUSES = ["good","partial","poor"];
@@ -813,17 +877,17 @@
 
   function completedCount(){
     var n=0;
-    for(var i=0;i<CASES.length;i++){ if(state.progress[CASES[i].id]) n++; }
+    for(var i=0;i<CASES.length;i++){ if(safeStatus(state.progress[CASES[i].id])!=="none") n++; }
     return n;
   }
   function masteredCount(){
     var n=0;
-    for(var i=0;i<CASES.length;i++){ if(state.progress[CASES[i].id]==="good") n++; }
+    for(var i=0;i<CASES.length;i++){ if(safeStatus(state.progress[CASES[i].id])==="good") n++; }
     return n;
   }
   function reviewCases(){
     return CASES.filter(function(c){
-      var s = state.progress[c.id];
+      var s = safeStatus(state.progress[c.id]);
       return s === "partial" || s === "poor";
     });
   }
@@ -857,13 +921,13 @@
 
     var html = "";
     html += '<div class="hero">';
-    html += '  <div class="eyebrow">院内コール 当直トレーニング</div>';
+    html += '  <div class="eyebrow">初期研修医のための</div>';
     html += '  <h1>院内コール<br>当直トレーニング</h1>';
     html += '  <p>夜間、看護師からかかってくる8つのコールを疑似体験します。答えを見る前に、自分の言葉で「電話でまず確認すること」「見落とすと危険な病態」「初期対応・指示」を書き出してみましょう。</p>';
     html += '</div>';
 
     html += '<div class="progress-card">';
-    html += '  <div class="progress-ring"><svg width="56" height="56"><circle cx="28" cy="28" r="24" stroke="var(--surface-2)" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="24" stroke="var(--primary)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'"/></svg><div class="pct">'+pct+'%</div></div>';
+    html += '  <div class="progress-ring"><svg width="56" height="56" aria-hidden="true" focusable="false"><circle cx="28" cy="28" r="24" stroke="var(--surface-2)" stroke-width="5" fill="none"/><circle cx="28" cy="28" r="24" stroke="var(--primary)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'"/></svg><div class="pct">'+pct+'%</div></div>';
     html += '  <div class="progress-text"><div class="num">'+mastered+' / '+total+' 症例 自力で言えた</div><div class="sub">'+subLine+'</div></div>';
     if(rev.length){
       html += '  <button class="review-pill-btn" data-action="toggle-review">復習</button>';
@@ -905,6 +969,7 @@
   var revealCache = {}; // caseId -> bool (revealed) — intentionally session-only (resets each visit)
   var draftCache = loadDrafts(); // caseId -> {check,danger,tests} — persisted to localStorage, debounced
   var pendingStatus = {}; // caseId -> chosen status this session (before/while confirming)
+  var draftSaveFailed = false;
 
   function renderCase(c){
     var html = "";
@@ -918,11 +983,14 @@
     html += '<div id="prompts">';
     PROMPTS.forEach(function(p, i){
       html += '<div class="prompt-block">';
-      html += '<label><span class="n">'+(i+1)+'.</span>'+p.label+'</label>';
-      html += '<textarea data-field="'+p.key+'" placeholder="'+p.ph+'">'+ (drafts[p.key] ? escapeHtml(drafts[p.key]) : "") +'</textarea>';
+      html += '<label for="field-'+p.key+'-'+c.id+'"><span class="n">'+(i+1)+'.</span>'+p.label+'</label>';
+      html += '<textarea id="field-'+p.key+'-'+c.id+'" data-field="'+p.key+'" placeholder="'+escapeHtml(p.ph)+'">'+ (drafts[p.key] ? escapeHtml(drafts[p.key]) : "") +'</textarea>';
       html += '</div>';
     });
     html += '</div>';
+    if(draftSaveFailed){
+      html += '<div class="save-warning">⚠ この端末には下書きを保存できませんでした。プライベートブラウズ中か、ストレージが無効になっている可能性があります。この画面を離れると入力内容が失われます。</div>';
+    }
 
     if(!revealed){
       html += '<button class="reveal-btn" data-action="reveal">模範解答を見る</button>';
@@ -935,7 +1003,7 @@
 
   function renderAnswer(c){
     var catLabel = c.cat==="urgent" ? "緊急性の高いコール" : "判断力が問われるコール";
-    var html = '<div class="answer-wrap">';
+    var html = '<div class="answer-wrap" tabindex="-1">';
     html += '<div class="diagnosis-reveal"><div class="dr-eyebrow">正解</div><div class="dr-title">'+c.title+'</div><div class="dr-sub">'+catLabel+'・'+c.tag+'</div>';
     html += '<div class="verdict-badge '+c.verdict+'">'+(c.verdict==="go"?"🚨 ":"☎ ")+c.verdictLabel+'</div>';
     html += '</div>';
@@ -952,7 +1020,8 @@
 
     html += '<div class="assess-block">';
     html += '<div class="q">自分の答えと照らし合わせて、自己評価しましょう</div>';
-    var cur = pendingStatus[c.id] || state.progress[c.id] || "";
+    var cur = pendingStatus[c.id] || safeStatus(state.progress[c.id]);
+    if(cur === "none") cur = "";
     html += '<div class="assess-row">';
     html += assessBtn("good","自力で言えた", cur);
     html += assessBtn("partial","一部抜けた", cur);
@@ -1012,13 +1081,14 @@
   }
 
   function assessBtn(kind, label, cur){
-    return '<button class="assess-btn '+kind+(cur===kind?' active':'')+'" data-action="assess" data-kind="'+kind+'">'+label+'</button>';
+    var on = (cur===kind);
+    return '<button class="assess-btn '+kind+(on?' active':'')+'" aria-pressed="'+(on?'true':'false')+'" data-action="assess" data-kind="'+kind+'">'+label+'</button>';
   }
 
   /* ---------------- RENDER: KEITAI ---------------- */
   function renderKeitai(){
     var html = "";
-    html += '<div class="keitai-hero"><div class="eyebrow">コール対応の型</div><h1>どんな内容のコールでも、まずこの順番で考える</h1><p>コールの内容が何であれ、当直対応の初動はこの5ステップが基本の型になります。症例ごとの知識より先に、この流れを体に染み込ませましょう。</p></div>';
+    html += '<div class="keitai-hero"><div class="eyebrow">コール対応の型</div><h1>どんな内容のコールでも、まずこの順番で考える</h1><p>当直対応の初動はこの6ステップが基本の型になります。症例ごとの知識より先に、この流れを体に染み込ませましょう。</p></div>';
     html += '<div class="escalation-note"><div class="en-label">⚡ いつでも・早ければ早いほど</div><div class="en-body">上級医への相談はこの流れの「最後」ではありません。判断に迷う・重症感がある時点で、<mark>指示を決め切るより先に</mark>共有してください。一人で抱え込まないこと自体が初動の一部です。</div></div>';
     html += '<div class="escalation-note"><div class="en-label">⚠ DNAR・高齢は「治療を控える理由」ではない</div><div class="en-body">DNARは<mark>心肺停止時にCPRを行わない</mark>という指示であり、それ以外の酸素投与・輸液・抗菌薬・検査・止血処置などの適応を狭めるものではありません。高齢であることも同様です。治療強度は本人・代理意思決定者との合意(ACP)に基づいて個別に判断するものであり、年齢やDNARの有無だけで初動を省略しないでください。</div></div>';
     html += '<div class="flow">';
@@ -1029,7 +1099,7 @@
       html += '</div>';
     });
     html += '</div>';
-    html += '<div class="keitai-foot">迷ったら、この5つに立ち返る。</div>';
+    html += '<div class="keitai-foot">迷ったら、この6つに立ち返る。</div>';
     return html;
   }
 
@@ -1084,6 +1154,7 @@
           revealCache[el.getAttribute("data-id")] = false;
           delete pendingStatus[el.getAttribute("data-id")];
           lastSaveFailed = false;
+          draftSaveFailed = false;
           go("case", el.getAttribute("data-id"));
         } else if(action==="goto-home"){
           // Keep whatever reviewOnly state we already had — a user backing out of a case
@@ -1103,7 +1174,11 @@
           revealCache[state.caseId] = true;
           render();
           var wrap = app.querySelector(".answer-wrap");
-          if(wrap) wrap.scrollIntoView({behavior:"smooth", block:"start"});
+          if(wrap){
+            var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            wrap.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block:"start"});
+            wrap.focus({preventScroll:true});
+          }
         } else if(action==="assess"){
           var kind = el.getAttribute("data-kind");
           var c0 = caseById(state.caseId);
@@ -1118,6 +1193,8 @@
           var next = nextCaseAfter(c);
           revealCache[next.id] = false;
           delete pendingStatus[next.id];
+          lastSaveFailed = false;
+          draftSaveFailed = false;
           go("case", next.id);
         }
       });
@@ -1131,24 +1208,29 @@
   }
 
   var draftSaveTimer = null;
+  var dirtyDrafts = {}; // caseId -> true for cases this tab has actually edited
   function collectDraft(caseId, flushNow){
     var d = {};
     app.querySelectorAll("textarea[data-field]").forEach(function(ta){
       d[ta.getAttribute("data-field")] = ta.value;
     });
     draftCache[caseId] = d;
+    dirtyDrafts[caseId] = true;
     if(draftSaveTimer){ clearTimeout(draftSaveTimer); draftSaveTimer = null; }
     if(flushNow){
-      saveDrafts(draftCache);
+      draftSaveFailed = !saveDrafts(draftCache, Object.keys(dirtyDrafts));
     } else {
-      draftSaveTimer = setTimeout(function(){ saveDrafts(draftCache); }, 400);
+      draftSaveTimer = setTimeout(function(){
+        var failed = !saveDrafts(draftCache, Object.keys(dirtyDrafts));
+        if(failed !== draftSaveFailed){ draftSaveFailed = failed; render(); }
+      }, 400);
     }
   }
   // Best-effort: flush any pending debounced draft save if the tab is closed/backgrounded
   // before the timer fires (mobile browsers routinely discard backgrounded tabs).
-  window.addEventListener("pagehide", function(){ saveDrafts(draftCache); });
+  window.addEventListener("pagehide", function(){ saveDrafts(draftCache, Object.keys(dirtyDrafts)); });
   document.addEventListener("visibilitychange", function(){
-    if(document.visibilityState === "hidden") saveDrafts(draftCache);
+    if(document.visibilityState === "hidden") saveDrafts(draftCache, Object.keys(dirtyDrafts));
   });
 
   render();
