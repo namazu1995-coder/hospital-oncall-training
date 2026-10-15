@@ -170,8 +170,6 @@
 
   .section-head{ display:flex; align-items:baseline; gap:8px; margin:26px 0 12px; }
   .section-head .dot{width:9px;height:9px;border-radius:50%;flex:none;}
-  .section-head.urgent .dot{background:var(--bad);}
-  .section-head.judgment .dot{background:var(--warn);}
   .section-head h2{font-size:15px; font-weight:700; color:var(--ink);}
   .section-head .count{font-size:12px; color:var(--ink-faint); font-weight:400;}
 
@@ -960,12 +958,10 @@
         html += '<div class="case-grid">'+rev.map(caseCardHtml).join("")+'</div>';
       }
     } else {
-      var urgent = CASES.filter(function(c){return c.cat==="urgent";});
-      var judgment = CASES.filter(function(c){return c.cat==="judgment";});
-      html += '<div class="section-head urgent"><span class="dot"></span><h2>緊急性の高いコール</h2><span class="count">'+urgent.length+'症例</span></div>';
-      html += '<div class="case-grid">'+urgent.map(caseCardHtml).join("")+'</div>';
-      html += '<div class="section-head judgment"><span class="dot"></span><h2>判断力が問われるコール</h2><span class="count">'+judgment.length+'症例</span></div>';
-      html += '<div class="case-grid">'+judgment.map(caseCardHtml).join("")+'</div>';
+      // カテゴリ(緊急性/判断力)で区分すると一覧の時点で緊急度が推測できてしまうため、
+      // 区分せず1つの一覧にする。カテゴリは解答後の表示(diagnosis-reveal)でのみ示す。
+      html += '<div class="section-head"><span class="dot" style="background:var(--primary)"></span><h2>症例一覧</h2><span class="count">'+CASES.length+'症例</span></div>';
+      html += '<div class="case-grid">'+CASES.map(caseCardHtml).join("")+'</div>';
     }
 
     return html;
